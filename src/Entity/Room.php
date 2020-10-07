@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RoomRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,10 +36,29 @@ class Room
     private $floor;
 
     /**
-     * @ORM\OneToOne(targetEntity="Task")
-     *
+     * @ORM\ManyToMany(targetEntity="Task")
      */
     private $task;
+    /**
+     * @param mixed $task
+     */
+    public function addTask($task)
+    {
+        $this->task->add($task);
+        // uncomment if you want to update other side
+        //$task->setRoom($this);
+    }
+
+    /**
+     * @param mixed $task
+     */
+    public function removeTask($task)
+    {
+        $this->task->removeElement($task);
+        // uncomment if you want to update other side
+        //$task->setRoom(null);
+    }
+
 
     /**
      * @var \DateTime $created
@@ -63,6 +83,12 @@ class Room
      * @Gedmo\Timestampable(on="change", field={"title", "body"})
      */
     private $contentChanged;
+
+
+    public function __construct()
+    {
+        $this->task = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -118,18 +144,6 @@ class Room
     {
         return $this->task;
     }
-
-    /**
-     * @param mixed $task
-     * @return Room
-     */
-    public function setTask($task)
-    {
-        $this->task = $task;
-        return $this;
-    }
-
-
 
 
     /**
