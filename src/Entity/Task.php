@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\TaskList;
 use App\Repository\TaskRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +20,7 @@ class Task
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity="TaskList")
      */
     private $name;
 
@@ -145,17 +146,25 @@ class Task
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return mixed
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param mixed $name
+     * @return Task
+     */
+    public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
+
+
 
     public function getComment(): ?string
     {

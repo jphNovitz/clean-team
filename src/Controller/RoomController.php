@@ -63,7 +63,7 @@ class RoomController extends AbstractController
      */
     public function edit(Request $request, Room $room): Response
     {
-        $form = $this->createForm(Room1Type::class, $room);
+        $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

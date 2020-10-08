@@ -36,28 +36,31 @@ class Room
     private $floor;
 
     /**
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="Task")
      */
-    private $task;
-    /**
-     * @param mixed $task
-     */
-    public function addTask($task)
-    {
-        $this->task->add($task);
-        // uncomment if you want to update other side
-        //$task->setRoom($this);
-    }
+    private $tasks;
 
-    /**
-     * @param mixed $task
-     */
-    public function removeTask($task)
-    {
-        $this->task->removeElement($task);
-        // uncomment if you want to update other side
-        //$task->setRoom(null);
-    }
+//
+//    /**
+//     * @param mixed $task
+//     */
+//    public function addTask($task)
+//    {
+//        $this->task->add($task);
+//        // uncomment if you want to update other side
+//        //$task->setRoom($this);
+//    }
+//
+//    /**
+//     * @param mixed $task
+//     */
+//    public function removeTask($task)
+//    {
+//        $this->task->removeElement($task);
+//        // uncomment if you want to update other side
+//        //$task->setRoom(null);
+//    }
 
 
     /**
@@ -193,6 +196,35 @@ class Room
     {
         $this->contentChanged = $contentChanged;
     }
+
+    /**
+     * @param mixed $task
+     */
+    public function addTask($task)
+    {
+        $this->tasks->add($task);
+        // uncomment if you want to update other side
+        //$task->setRoom($this);
+    }
+
+    /**
+     * @param mixed $task
+     */
+    public function removeTask($task)
+    {
+        $this->tasks->removeElement($task);
+        // uncomment if you want to update other side
+        //$task->setRoom(null);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
 
 
 }
