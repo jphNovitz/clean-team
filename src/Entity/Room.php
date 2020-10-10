@@ -41,27 +41,11 @@ class Room
      */
     private $tasks;
 
-//
-//    /**
-//     * @param mixed $task
-//     */
-//    public function addTask($task)
-//    {
-//        $this->task->add($task);
-//        // uncomment if you want to update other side
-//        //$task->setRoom($this);
-//    }
-//
-//    /**
-//     * @param mixed $task
-//     */
-//    public function removeTask($task)
-//    {
-//        $this->task->removeElement($task);
-//        // uncomment if you want to update other side
-//        //$task->setRoom(null);
-//    }
-
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Journal", mappedBy="room")
+     */
+    private $journal;
 
     /**
      * @var \DateTime $created
@@ -90,8 +74,8 @@ class Room
 
     public function __construct()
     {
-        $this->task = new ArrayCollection();
-    }
+        $this->tasks = new ArrayCollection();
+            }
 
     public function getId(): ?int
     {
@@ -140,13 +124,6 @@ class Room
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTask()
-    {
-        return $this->task;
-    }
 
 
     /**
@@ -198,6 +175,22 @@ class Room
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getJournal()
+    {
+        return $this->journal;
+    }
+
+    /**
      * @param mixed $task
      */
     public function addTask($task)
@@ -218,13 +211,24 @@ class Room
     }
 
     /**
-     * @return ArrayCollection
+     * @param mixed $journal
      */
-    public function getTasks()
+    public function addJournal($journal)
     {
-        return $this->tasks;
+        $this->journal->add($journal);
+        // uncomment if you want to update other side
+        //$journal->setRoom($this);
     }
 
+    /**
+     * @param mixed $journal
+     */
+    public function removeJournal($journal)
+    {
+        $this->journal->removeElement($journal);
+        // uncomment if you want to update other side
+        //$journal->setRoom(null);
+    }
 
 
 }

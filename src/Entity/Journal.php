@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JournalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,16 +21,23 @@ class Journal
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Room")
+     *
+     * @ORM\ManyToOne(targetEntity="Room", inversedBy="journal")
      *
      */
     private $room;
 
     /**
-     * @ORM\OneToOne(targetEntity="Task")
+     * @ORM\ManyToOne(targetEntity="Task", inversedBy="journal")
      *
      */
     private $task;
+
+    public function __construct()
+    {
+//        $this->task = new ArrayCollection();
+//        $this->room = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,44 +86,6 @@ class Journal
 
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getRoom()
-    {
-        return $this->room;
-    }
-
-    /**
-     * @param mixed $room
-     * @return Journal
-     */
-    public function setRoom($room)
-    {
-        $this->room = $room;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTask()
-    {
-        return $this->task;
-    }
-
-    /**
-     * @param mixed $task
-     * @return Journal
-     */
-    public function setTask($task)
-    {
-        $this->task = $task;
-        return $this;
-    }
-
-
 
     /**
      * @return \DateTime
@@ -167,6 +138,43 @@ class Journal
     public function setContentChanged($contentChanged)
     {
         $this->contentChanged = $contentChanged;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $room
+     * @return Journal
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+        $room->addJournal($this);
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTask()
+    {
+        return $this->task;
+    }
+
+    /**
+     * @param mixed $task
+     * @return Journal
+     */
+    public function setTask($task)
+    {
+        $this->task = $task;
         return $this;
     }
 

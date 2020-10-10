@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\TaskList;
 use App\Repository\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,7 +21,7 @@ class Task
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="TaskList")
+     *  @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -29,6 +30,11 @@ class Task
      */
     private $periodicity;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Journal", mappedBy="task")
+     */
+    private $journal;
 
     /**
      * @var \DateTime $created
@@ -72,7 +78,33 @@ class Task
         return $this;
     }
 
+    /**
+     * @param mixed $journal
+     */
+    public function addJournal($journal)
+    {
+        $this->journal->add($journal);
+        // uncomment if you want to update other side
+        //$journal->setTask($this);
+    }
 
+    /**
+     * @param mixed $journal
+     */
+    public function removeJournal($journal)
+    {
+        $this->journal->removeElement($journal);
+        // uncomment if you want to update other side
+        //$journal->setTask(null);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getJournal(): PersistentCollection
+    {
+        return $this->journal;
+    }
 
 
 
