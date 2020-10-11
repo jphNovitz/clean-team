@@ -22,7 +22,7 @@ class RoomType extends AbstractType
                 'class' => Floor::class,
                 'choice_label' => 'name'
             ] )
-            ->add('task', EntityType::class, [
+            ->add('tasks', EntityType::class, [
                 'class' => Task::class,
                 'choice_label' => 'name',
                 'multiple' => true

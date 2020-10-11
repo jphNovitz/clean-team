@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Periodicity;
 use App\Entity\Task;
+use App\Entity\TaskList;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -15,9 +16,10 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('comment', TextType::class)
-            ->add('status', TextType::class)
+            ->add('name',TextType::class)
+            ->add('comment', TextType::class, [
+                'required'   => false
+            ])
             ->add('periodicity', EntityType::class, [
                 'class' => Periodicity::class,
                 'choice_label' => 'name'

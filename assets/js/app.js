@@ -17,5 +17,16 @@ let menuTrigger = document.querySelector('#menu-trigger');
 let menu = document.querySelector('#menu-wrapper');
 menuTrigger.addEventListener('click',
     (trigger) =>
-         menu.classList.toggle('show-menu')
+        menu.classList.toggle('show-menu')
 );
+
+/** toggle card hide **/
+const showCards = document.querySelectorAll('.show-toggler');
+showCards.forEach(showCard => showCard.addEventListener('click', () => {
+        const cardShown = showCard.parentNode.parentNode;
+        // const childContent = cardShown.querySelector('.content');
+        cardShown.classList.toggle('showCard');
+    })
+);
+
+/* */

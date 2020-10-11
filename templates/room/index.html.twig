@@ -6,31 +6,44 @@
     <h1>Mes chambres</h1>
 
     <a href="{{ path('room_new') }}">Create new</a>
-<div class="cards">
-    {% for room in rooms %}
-        <div class="card">
-            <div class="header">
-                <h2>{{ room.number }} ({{ room.id }})</h2>
-                <button class="show-toggler"> \/</button>
+    <div class="cards">
+        {% for room in rooms %}
+            <div class="card">
+                <div class="header">
+                    <h2>{{ room.number }} ({{ room.id }})</h2>
+                    <button class="show-toggler"> \/</button>
+                </div>
+                <div class="content slideUp">
+                    <p>A propos de la chambre: {{ room.comment }}</p>
+
+                    <h3>Mes tâches</h3>
+                    <section class="items-cards">
+
+                        {% for task in room.tasks %}
+                            <article class="card">
+                                <h3> {{ task.name }} </h3>
+                                <p>Fait le: </p>
+                                {% if room.id is defined %}
+                                    {#{{ task.id }}#}
+                                {{ render(controller(
+                                    'App\\Controller\\JournalController::tasksByRoom',
+                                    { 'room': room.id, 'task': task.id }
+                                )) }}
+                                {% endif %}
+
+                            {#<a href="{{ path('journal_action', {'room': room.id, 'task': task.id}) }}">action</a>#}
+                          </article>
+                        {% endfor %}
+
+                    </section>
+                    <h4>Fiche créée le {{ room.created ? room.created|date('Y-m-d H:i:s') : '' }}</h4>
+                    <h4>Dernière modification {{ room.updated ? room.updated|date('Y-m-d H:i:s') : '' }}</h4>
+                    <p>
+                        <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
+                        <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
+                    </p>
+                </div>
             </div>
-            <div class="content slideUp">
-                <p>A propos de la chambre:  {{ room.comment }}</p>
-
-                <h3>Mes tâches</h3>
-                <ul>
-                    {% for task in room.tasks  %}
-                        <li>{{ task.name }}</li>
-                    {% endfor %}
-
-                </ul>
-                <h4>Fiche créée le {{ room.created ? room.created|date('Y-m-d H:i:s') : '' }}</h4>
-                <h4>Dernière modification {{ room.updated ? room.updated|date('Y-m-d H:i:s') : '' }}</h4>
-
-                <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
-                <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
-                </p>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 {% endblock %}
