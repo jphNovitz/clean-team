@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -48,6 +49,11 @@ class Room
     private $journal;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="rooms")
+     */
+    private $user;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -75,6 +81,7 @@ class Room
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->journal = new ArrayCollection();
             }
 
     public function getId(): ?int
@@ -228,6 +235,18 @@ class Room
         $this->journal->removeElement($journal);
         // uncomment if you want to update other side
         //$journal->setRoom(null);
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -171,6 +172,7 @@ class Task
     public function __construct()
     {
         $this->status = 0;
+        $this->journal = new ArrayCollection();
     }
 
     public function getId(): ?int

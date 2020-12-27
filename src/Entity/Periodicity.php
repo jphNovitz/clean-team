@@ -100,4 +100,40 @@ class Periodicity
 
         return $this;
     }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getContentChanged(): ?\DateTimeInterface
+    {
+        return $this->contentChanged;
+    }
+
+    public function setContentChanged(?\DateTimeInterface $contentChanged): self
+    {
+        $this->contentChanged = $contentChanged;
+
+        return $this;
+    }
 }
