@@ -51,9 +51,15 @@ class User implements UserInterface
      */
     private $rooms;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organisation", inversedBy="users")
+     */
+    private $organisations;
+
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
+        $this->organisations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +190,30 @@ class User implements UserInterface
                 $room->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Organisation[]
+     */
+    public function getOrganisations(): Collection
+    {
+        return $this->organisations;
+    }
+
+    public function addOrganisation(Organisation $organisation): self
+    {
+        if (!$this->organisations->contains($organisation)) {
+            $this->organisations[] = $organisation;
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisation(Organisation $organisation): self
+    {
+        $this->organisations->removeElement($organisation);
 
         return $this;
     }

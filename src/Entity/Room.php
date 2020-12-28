@@ -53,6 +53,12 @@ class Room
      */
     private $user;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organisation", inversedBy="rooms")
+     */
+    private $organisation;
+
     /**
      * @var \DateTime $created
      *
@@ -245,6 +251,18 @@ class Room
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getOrganisation(): ?Organisation
+    {
+        return $this->organisation;
+    }
+
+    public function setOrganisation(?Organisation $organisation): self
+    {
+        $this->organisation = $organisation;
 
         return $this;
     }
