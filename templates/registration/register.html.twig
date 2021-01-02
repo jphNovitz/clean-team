@@ -1,21 +1,37 @@
-<!DOCTYPE html>
+{% extends '_bases/base_security.html.twig' %}
 
-<title>Register</title>
-
+{% block head %}
+    <title>Register</title>
+{% endblock %}
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+    <div class="ct_container">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
 
-    <h1>Register</h1>
+    </div>
+    <div class="ct_container">
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="ct_form">
+            <h1>Register</h1>
+
+            {{ form_start(registrationForm) }}
+            <div class="form-row">
+
+                {{ form_label(registrationForm.email, null, {'attr': {'class': 'my-row-class'} }) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'my-row-class'} }) }}
+
+            </div>
+            <div class="form-row">
+
+                {{ form_label(registrationForm.plainPassword) }}
+                {{ form_widget(registrationForm.plainPassword) }}
+            </div>
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
