@@ -25,10 +25,7 @@ class Organisation
      */
     private $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="organisations")
-     */
-    private $users;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="organisation")
@@ -61,8 +58,15 @@ class Organisation
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->rooms = new ArrayCollection();
+        $this->created = new \DateTime('now');
+        $this->updated = new \DateTime('now');
+        $this->contentChanged = new \DateTime('now');
+    }
+
+    public function __toString()
+    {
+        return$this->name;
     }
 
     public function getId(): ?int
@@ -117,34 +121,7 @@ class Organisation
 
         return $this;
     }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addOrganisation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeOrganisation($this);
-        }
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Room[]
      */

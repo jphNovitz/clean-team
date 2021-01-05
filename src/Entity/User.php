@@ -54,9 +54,9 @@ class User implements UserInterface
     private $rooms;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organisation", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organisation", cascade={"persist", "remove"})
      */
-    private $organisations;
+    private $organisation;
 
     /**
      * @ORM\Column(type="boolean")
@@ -201,30 +201,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Organisation[]
-     */
-    public function getOrganisations(): Collection
-    {
-        return $this->organisations;
-    }
-
-    public function addOrganisation(Organisation $organisation): self
-    {
-        if (!$this->organisations->contains($organisation)) {
-            $this->organisations[] = $organisation;
-        }
-
-        return $this;
-    }
-
-    public function removeOrganisation(Organisation $organisation): self
-    {
-        $this->organisations->removeElement($organisation);
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -233,6 +209,23 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function getOrganisation(): ?Organisation
+    {
+        return $this->organisation;
+    }
+
+    public function setOrganisation(?Organisation $organisation): self
+    {
+        $this->organisation = $organisation;
 
         return $this;
     }

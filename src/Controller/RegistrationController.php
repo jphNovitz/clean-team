@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Organisation;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -17,10 +20,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
+    private $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -40,10 +45,20 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $organisation = $this->entityManager
+                ->getRepository('App:Organisation')
+                ->findOneBy(['name' => $form->get('organisation')->getData()]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            if (!$organisation) {
+                $organisation = new Organisation();
+                $organisation->setName($form->get('plainPassword')->getData());
+
+
+            }
+            $user->setOrganisation($organisation);
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -55,7 +70,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('user_profile');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -80,8 +95,8 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adreese est validée, merci !.');
 
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('user_profile');
     }
 }
