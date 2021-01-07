@@ -31,10 +31,10 @@ class Room
     private $comment;
 
     /**
-     * @ORM\OneToOne(targetEntity="Floor")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Area")
      *
      */
-    private $floor;
+    private $area;
 
     /**
      * @var ArrayCollection
@@ -88,7 +88,12 @@ class Room
     {
         $this->tasks = new ArrayCollection();
         $this->journal = new ArrayCollection();
-            }
+     }
+
+     public function __toString()
+     {
+         return $this->number;
+     }
 
     public function getId(): ?int
     {
@@ -118,25 +123,6 @@ class Room
 
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getFloor()
-    {
-        return $this->floor;
-    }
-
-    /**
-     * @param mixed $floor
-     * @return Room
-     */
-    public function setFloor($floor)
-    {
-        $this->floor = $floor;
-        return $this;
-    }
-
 
 
     /**
@@ -263,6 +249,18 @@ class Room
     public function setOrganisation(?Organisation $organisation): self
     {
         $this->organisation = $organisation;
+
+        return $this;
+    }
+
+    public function getArea(): ?Area
+    {
+        return $this->area;
+    }
+
+    public function setArea(?Area $area): self
+    {
+        $this->area = $area;
 
         return $this;
     }

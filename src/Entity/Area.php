@@ -49,7 +49,7 @@ class Area
     private $contentChanged;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comment;
 
@@ -60,6 +60,10 @@ class Area
         $this->created = new \DateTime('now');
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function getId(): ?int
     {
