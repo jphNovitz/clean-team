@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Room;
 
 use App\Entity\Room;
 use App\Form\RoomType;
+use App\Form\UserRoomsType;
 use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/room")
+ * @Route("/chambre")
  */
 class RoomController extends AbstractController
 {
@@ -23,6 +24,22 @@ class RoomController extends AbstractController
         return $this->render('room/index.html.twig', [
             'rooms' => $roomRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/mes-chambres", name="room_user", methods={"GET", "POST"})
+     */
+    public function myRooms(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+
+        $form = $this->createForm(UserRoomsType::class, $user,['organisation'=>$user->getOrganisation()]);
+        return $this->render('room/user-rooms.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
     }
 
     /**
@@ -91,4 +108,7 @@ class RoomController extends AbstractController
 
         return $this->redirectToRoute('room_index');
     }
+
+
+
 }

@@ -13,13 +13,13 @@ import '../css/app.scss';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
-let menuTrigger = document.querySelector('#menu-trigger');
+/*let menuTrigger = document.querySelector('#menu-trigger');
 let menu = document.querySelector('#menu-wrapper');
 menuTrigger.addEventListener('click',
     (trigger) =>
         menu.classList.toggle('show-menu')
 );
-
+*/
 /** toggle card hide **/
 const showCards = document.querySelectorAll('.show-toggler');
 showCards.forEach(showCard => showCard.addEventListener('click', () => {
@@ -29,4 +29,33 @@ showCards.forEach(showCard => showCard.addEventListener('click', () => {
     })
 );
 
-/* */
+/* groups */
+
+let rows = document.querySelectorAll('.form-row')
+let current = null
+rows.forEach(row => {
+    //console.log(row.firstElementChild.nextElementSibling.dataset.group)
+    if (row.firstElementChild.nextElementSibling.dataset.group !== current) {
+        current = row.firstElementChild.nextElementSibling.dataset.group
+        parent = row.parentNode
+
+        let groupParent = document.createElement('div')
+        groupParent.classList.add('form-group-header')
+
+        // checkbox
+        let checkbox = document.createElement("input")
+        checkbox.setAttribute('type', 'checkbox')
+        checkbox.setAttribute('id', row.firstElementChild.nextElementSibling.id)
+        checkbox.classList.add('form-group')
+        groupParent.append(checkbox)
+        //parent.insertBefore(checkbox, row)
+
+        // label for checkbox
+        let ckLabel = document.createElement('label')
+        ckLabel.innerHTML = current
+        ckLabel.setAttribute('for', row.firstElementChild.nextElementSibling.id)
+        groupParent.insertBefore(ckLabel, checkbox)
+        parent.insertBefore(groupParent, row)
+    }
+
+})

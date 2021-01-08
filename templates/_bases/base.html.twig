@@ -8,11 +8,126 @@
     {% endblock %}
 </head>
 <body>
+
+<div class="ct_container">
+    <div class="row">
+        <div class="text-logo">
+            Clean Team
+        </div>
+    </div>
+
+</div>
 {# main nav #}
 {#{% include '../_template_parts/_main_nav_html.twig' %}#}
 {% block body %}{% endblock %}
 {% block javascripts %}
-{#    {{ encore_entry_script_tags('app') }}#}
+   {{ encore_entry_script_tags('app') }}
 {% endblock %}
+
+{% block stylesheetsinline%}
+
+    <style>
+        body {
+            background-color: #d4d2d3;
+        }
+
+
+        .ct_container .text-logo {
+            background-color: white;
+            display: flex;
+            flex-direction: row;
+            border-radius: 50%;
+            line-height: 6rem;
+            font-size: 1.5rem;
+            padding: 1rem;
+            align-self: flex-start;
+        }
+
+        .ct_container {
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+            flex-basis: 100px;
+            max-width: 95%;
+
+        }
+
+        .ct_cotainer h1 {
+            font-size: 3rem;
+        }
+
+        .ct_form .form-row {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+        }
+
+        .ct_form .form-group-header {
+            display: flex;
+            flex-basis: 100%;
+            flex-shrink: 0;
+            font-size: 2rem;
+            margin-top: 1rem;
+        }
+        .ct_form .form-group {
+            display: flex;
+            flex-basis: 100%;
+            flex-shrink: 0;
+        }
+        .ct_form .btn {
+            background-color: #24b7ff;
+            color: black;
+            padding: .4rem 1rem;
+            margin: 2rem .5rem;
+        }
+
+        .ct_form .form-row input {
+            width: 50%;
+        }
+
+        .ct_container .ct_form {
+            width: 95%;
+            justify-content: center;
+        }
+
+        .alert .alert-danger{
+            background-color: red;
+            color: white;
+            padding: 1rem;
+            margin: 1rem;
+        }
+        .alert .alert-success{
+            background-color: #1d8c03;
+            color: white;
+            padding: 1rem;
+            margin: 1rem;
+        }
+
+        /* Medium and up */
+        @media screen and (min-width: 40em) {
+        }
+
+        /*!* Medium only *!*/
+        /*@media screen and (min-width: 40em) and (max-width: 63.9375em) {}*/
+
+        /* Large and up */
+        @media screen and (min-width: 64em) {
+            .ct_container .ct_form {
+                width: 50%;
+                justify-self: center;
+            }
+        }
+
+        /* Large only */
+        @media screen and (min-width: 64em) and (max-width: 74.9375em) {
+        }
+    </style>
+{% endblock %}
+
 </body>
 

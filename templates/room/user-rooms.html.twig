@@ -1,0 +1,22 @@
+{% extends '_bases/base.html.twig' %}
+
+{% block title %}Task index{% endblock %}
+
+{% block body %}
+    <div class="ct_container">
+        <div class="ct_form">
+            {{ form_start(form,   {'attr': {
+                "style": "display: flex ; flex-wrap: wrap",
+            }}) }}
+
+                {% for child in form.rooms %}
+                <div class="form-row" style="flex: 9rem ; margin-right: 4rem">
+                    {{ form_label(child) }}
+                        {{ form_widget(child) }}
+                </div>
+                {% endfor %}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
