@@ -45,17 +45,32 @@ rows.forEach(row => {
         // checkbox
         let checkbox = document.createElement("input")
         checkbox.setAttribute('type', 'checkbox')
-        checkbox.setAttribute('id', row.firstElementChild.nextElementSibling.id)
-        checkbox.classList.add('form-group')
+        checkbox.setAttribute('id', current)
         groupParent.append(checkbox)
-        //parent.insertBefore(checkbox, row)
 
         // label for checkbox
         let ckLabel = document.createElement('label')
         ckLabel.innerHTML = current
-        ckLabel.setAttribute('for', row.firstElementChild.nextElementSibling.id)
+        ckLabel.setAttribute('for', current)
         groupParent.insertBefore(ckLabel, checkbox)
         parent.insertBefore(groupParent, row)
     }
+    /*else {
+        parent = row.parentNode
+        // checkbox
+        let checkbox = document.createElement("input")
+        checkbox.setAttribute('type', 'checkbox')
+        checkbox.setAttribute('id', row.firstElementChild.nextElementSibling.id)
+        checkbox.classList.add('form-group')
+        parent.append(checkbox)
+        //parent.insertBefore(checkbox, row)
+
+        // label for checkbox
+        let ckLabel = document.createElement('label')
+        ckLabel.innerHTML = row.firstElementChild.nextElementSibling.dataset.group
+        ckLabel.setAttribute('for', row.firstElementChild.nextElementSibling.id)
+        parent.insertBefore(ckLabel, checkbox)
+        //parent.insertBefore(groupParent, row)
+    }*/
 
 })
