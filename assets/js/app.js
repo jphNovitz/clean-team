@@ -74,3 +74,14 @@ rows.forEach(row => {
     }*/
 
 })
+
+let aaaah = document.querySelectorAll('.form-group-header input')
+aaaah.forEach(a => a.addEventListener('click', function (e) {
+    let groups = document.querySelectorAll('[data-group]')
+    groups.forEach(group => {
+        if (group.getAttribute('data-group') === this.id) {
+            console.log(this.id)
+            group.checked = !group.checked
+        }
+    })
+}))
