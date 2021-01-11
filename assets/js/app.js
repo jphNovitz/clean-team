@@ -55,33 +55,15 @@ rows.forEach(row => {
         groupParent.insertBefore(ckLabel, checkbox)
         parent.insertBefore(groupParent, row)
     }
-    /*else {
-        parent = row.parentNode
-        // checkbox
-        let checkbox = document.createElement("input")
-        checkbox.setAttribute('type', 'checkbox')
-        checkbox.setAttribute('id', row.firstElementChild.nextElementSibling.id)
-        checkbox.classList.add('form-group')
-        parent.append(checkbox)
-        //parent.insertBefore(checkbox, row)
-
-        // label for checkbox
-        let ckLabel = document.createElement('label')
-        ckLabel.innerHTML = row.firstElementChild.nextElementSibling.dataset.group
-        ckLabel.setAttribute('for', row.firstElementChild.nextElementSibling.id)
-        parent.insertBefore(ckLabel, checkbox)
-        //parent.insertBefore(groupParent, row)
-    }*/
-
 })
 
-let aaaah = document.querySelectorAll('.form-group-header input')
-aaaah.forEach(a => a.addEventListener('click', function (e) {
+let items = document.querySelectorAll('.form-group-header input')
+items.forEach(a => a.addEventListener('click', function (e) {
+
     let groups = document.querySelectorAll('[data-group]')
     groups.forEach(group => {
         if (group.getAttribute('data-group') === this.id) {
-            console.log(this.id)
-            group.checked = !group.checked
+            group.checked = this.checked
         }
     })
 }))

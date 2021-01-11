@@ -6,6 +6,7 @@ use App\Entity\Room;
 use App\Form\RoomType;
 use App\Form\UserRoomsType;
 use App\Repository\RoomRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +30,22 @@ class RoomController extends AbstractController
     /**
      * @Route("/mes-chambres", name="room_user", methods={"GET", "POST"})
      */
-    public function myRooms(): Response
+    public function myRooms(Request $request, EntityManagerInterface $manager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
+        $form = $this->createForm(UserRoomsType::class, $user, ['organisation' => $user->getOrganisation()]);
 
+        $form->handleRequest($request);
 
-        $form = $this->createForm(UserRoomsType::class, $user,['organisation'=>$user->getOrganisation()]);
+        if ($form->isSubmitted() && $form->isValid()) :
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'Chambres modifiées !');
+            } catch (\Exception $e) {
+                $this->addFlash('dangere', 'Il y a eu une erreur');
+            }
+        endif;
         return $this->render('room/user-rooms.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -100,7 +110,7 @@ class RoomController extends AbstractController
      */
     public function delete(Request $request, Room $room): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $room->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($room);
             $entityManager->flush();
@@ -108,7 +118,6 @@ class RoomController extends AbstractController
 
         return $this->redirectToRoute('room_index');
     }
-
 
 
 }

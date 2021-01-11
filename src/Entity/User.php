@@ -49,7 +49,7 @@ class User implements UserInterface
     private $LastName;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Room", inversedBy="users")
      */
     private $rooms;
 
@@ -66,7 +66,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->rooms = new ArrayCollection();
-        $this->organisations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,35 +170,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Room[]
-     */
-    public function getRooms(): Collection
-    {
-        return $this->rooms;
-    }
 
-    public function addRoom(Room $room): self
-    {
-        if (!$this->rooms->contains($room)) {
-            $this->rooms[] = $room;
-            $room->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRoom(Room $room): self
-    {
-        if ($this->rooms->removeElement($room)) {
-            // set the owning side to null (unless already changed)
-            if ($room->getUser() === $this) {
-                $room->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function isVerified(): bool
     {
@@ -218,6 +189,7 @@ class User implements UserInterface
         return $this->isVerified;
     }
 
+
     public function getOrganisation(): ?Organisation
     {
         return $this->organisation;
@@ -229,4 +201,30 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Room[]
+     */
+    public function getRooms(): Collection
+    {
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): self
+    {
+        if (!$this->rooms->contains($room)) {
+            $this->rooms[] = $room;
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): self
+    {
+        $this->rooms->removeElement($room);
+
+        return $this;
+    }
+
+
 }

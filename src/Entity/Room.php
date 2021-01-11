@@ -49,9 +49,9 @@ class Room
     private $journal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="rooms")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="rooms")
      */
-    private $user;
+    private $users;
 
 
     /**
@@ -88,6 +88,7 @@ class Room
     {
         $this->tasks = new ArrayCollection();
         $this->journal = new ArrayCollection();
+        $this->users = new ArrayCollection();
      }
 
      public function __toString()
@@ -124,131 +125,38 @@ class Room
         return $this;
     }
 
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
 
-    /**
-     * @param \DateTime $created
-     */
-    public function setCreated($created)
+    public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * @param \DateTime $updated
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getContentChanged()
-    {
-        return $this->contentChanged;
-    }
-
-    /**
-     * @param \DateTime $contentChanged
-     */
-    public function setContentChanged($contentChanged)
-    {
-        $this->contentChanged = $contentChanged;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTasks()
-    {
-        return $this->tasks;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getJournal()
-    {
-        return $this->journal;
-    }
-
-    /**
-     * @param mixed $task
-     */
-    public function addTask($task)
-    {
-        $this->tasks->add($task);
-        // uncomment if you want to update other side
-        //$task->setRoom($this);
-    }
-
-    /**
-     * @param mixed $task
-     */
-    public function removeTask($task)
-    {
-        $this->tasks->removeElement($task);
-        // uncomment if you want to update other side
-        //$task->setRoom(null);
-    }
-
-    /**
-     * @param mixed $journal
-     */
-    public function addJournal($journal)
-    {
-        $this->journal->add($journal);
-        // uncomment if you want to update other side
-        //$journal->setRoom($this);
-    }
-
-    /**
-     * @param mixed $journal
-     */
-    public function removeJournal($journal)
-    {
-        $this->journal->removeElement($journal);
-        // uncomment if you want to update other side
-        //$journal->setRoom(null);
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
 
-    public function getOrganisation(): ?Organisation
+    public function getUpdated(): ?\DateTimeInterface
     {
-        return $this->organisation;
+        return $this->updated;
     }
 
-    public function setOrganisation(?Organisation $organisation): self
+    public function setUpdated(\DateTimeInterface $updated): self
     {
-        $this->organisation = $organisation;
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getContentChanged(): ?\DateTimeInterface
+    {
+        return $this->contentChanged;
+    }
+
+    public function setContentChanged(?\DateTimeInterface $contentChanged): self
+    {
+        $this->contentChanged = $contentChanged;
 
         return $this;
     }
@@ -265,5 +173,97 @@ class Room
         return $this;
     }
 
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        $this->tasks->removeElement($task);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Journal[]
+     */
+    public function getJournal(): Collection
+    {
+        return $this->journal;
+    }
+
+    public function addJournal(Journal $journal): self
+    {
+        if (!$this->journal->contains($journal)) {
+            $this->journal[] = $journal;
+            $journal->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJournal(Journal $journal): self
+    {
+        if ($this->journal->removeElement($journal)) {
+            // set the owning side to null (unless already changed)
+            if ($journal->getRoom() === $this) {
+                $journal->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getOrganisation(): ?Organisation
+    {
+        return $this->organisation;
+    }
+
+    public function setOrganisation(?Organisation $organisation): self
+    {
+        $this->organisation = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeRoom($this);
+        }
+
+        return $this;
+    }
 
 }
