@@ -15,16 +15,31 @@
             Clean Team
         </div>
     </div>
-
 </div>
+<div class="ct_container">
+    <div class="row">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
 {# main nav #}
-{#{% include '../_template_parts/_main_nav_html.twig' %}#}
+{# {% include '../_template_parts/_main_nav_html.twig' %} #}
 {% block body %}{% endblock %}
 {% block javascripts %}
-   {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 
-{% block stylesheetsinline%}
+{% block stylesheetsinline %}
 
     <style>
         body {
@@ -75,16 +90,18 @@
             margin-top: 1rem;
         }
 
-        .ct_form .form-group-header input[type="checkbox"]{
+        .ct_form .form-group-header input[type="checkbox"] {
             width: 1.85rem;
             height: 1.85rem;
             margin-left: 2rem;
         }
+
         .ct_form .form-group {
             display: flex;
             flex-basis: 100%;
             flex-shrink: 0;
         }
+
         .ct_form .btn {
             background-color: #24b7ff;
             color: black;
@@ -101,17 +118,20 @@
             justify-content: center;
         }
 
-        .alert .alert-danger{
-            background-color: red;
-            color: white;
+        .alert{
+            width: 100%;
             padding: 1rem;
             margin: 1rem;
         }
-        .alert .alert-success{
+
+        .alert.alert-danger {
+            background-color: red;
+            color: white;
+        }
+
+        .alert.alert-success {
             background-color: #1d8c03;
             color: white;
-            padding: 1rem;
-            margin: 1rem;
         }
 
         /* Medium and up */

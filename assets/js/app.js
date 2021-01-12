@@ -54,6 +54,8 @@ rows.forEach(row => {
         ckLabel.setAttribute('for', current)
         groupParent.insertBefore(ckLabel, checkbox)
         parent.insertBefore(groupParent, row)
+
+        console.log(row.firstElementChild.nextElementSibling)
     }
 })
 
