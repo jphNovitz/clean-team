@@ -3,5 +3,44 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-{{ dump(users) }}
+    <div class="ct_container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="ct_container">
+
+        <div class="ct_form">
+            <h1>Mon profil</h1>
+            {{ form_start(form) }}
+
+            <div class="form-row">
+                {{ form_label(form.lastName, 'Nom', {'attr': {'class': 'my-row-class'} }) }}
+                {{ form_widget(form.lastName, {'attr': {'class': 'my-row-class'} }) }}
+            </div>
+
+            <div class="form-row">
+                {{ form_label(form.firstName, 'Prenom', {'attr': {'class': 'my-row-class'} }) }}
+                {{ form_widget(form.firstName, {'attr': {'class': 'my-row-class'} }) }}
+            </div>
+
+            <div class="form-row">
+                {{ form_label(form.email, 'Email', {'attr': {'class': 'my-row-class'} }) }}
+                {{ form_widget(form.email, {'attr': {'class': 'my-row-class'} }) }}
+            </div>
+
+            <div class="form-row">
+                {# form_label(form.organisation, null, {'attr': {'class': 'my-row-class'} }) #}
+                {{ form_widget(form.organisation, {'attr': {'class': 'form-row'} }) }}
+            </div>
+            <button type="submit" class="btn">Envoi</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

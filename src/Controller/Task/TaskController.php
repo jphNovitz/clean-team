@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Task;
 
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Form\UserRoomsType;
 use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TaskController extends AbstractController
 {
+    /**
+     * @Route("/mes-taches", name="task_user", methods={"GET", "POST"})
+     */
+    public function myTasks(TaskRepository $taskRepository): Response
+    {
+
+        $form = $this->createForm(UserRoomsType::class, null);
+        return $this->render('task/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     /**
      * @Route("/", name="task_index", methods={"GET"})
      */
