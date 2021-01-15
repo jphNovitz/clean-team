@@ -113,6 +113,29 @@
             width: 50%;
         }
 
+        .column{
+            flex-direction: column !important;
+        }
+
+        .ct_container .ct_column_header,
+        .ct_container .ct_column_content {
+            display: flex;
+            flex-basis: 100%;
+            justify-content: space-between;
+        }
+
+        .ct_container .ct_column_header{
+            flex-direction: row;
+        }
+        .ct_container .ct_column_content {
+            flex-direction: column;
+        }
+        .ct_container .ct_column_content >div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         .ct_container .ct_form {
             width: 95%;
             justify-content: center;

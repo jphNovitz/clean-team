@@ -18,12 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoomController extends AbstractController
 {
     /**
-     * @Route("/", name="room_index", methods={"GET"})
+     * @Route("/{u}", name="room_index", methods={"GET"})
      */
-    public function index(RoomRepository $roomRepository): Response
+    public function index(RoomRepository $roomRepository, $u = null): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ($u == 'me') $user = $this->getUser()->getId();
+            else $user = null;
+
+
+
         return $this->render('room/index.html.twig', [
-            'rooms' => $roomRepository->findAll(),
+            'rooms' => $roomRepository->findRooms($user),
         ]);
     }
 
