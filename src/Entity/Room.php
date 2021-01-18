@@ -60,6 +60,18 @@ class Room
     private $organisation;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User")
+     * @ORM\Column(nullable=true)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User")
+     * @ORM\Column(nullable=true)
+     */
+    private $updatedBy;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -262,6 +274,30 @@ class Room
         if ($this->users->removeElement($user)) {
             $user->removeRoom($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }
