@@ -258,6 +258,17 @@ class Room
     {
         return $this->users;
     }
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersId()
+    {
+        $ids = [];
+        foreach ($this->users as $user):
+                array_push($ids, $user->getId());
+        endforeach;
+        return $ids;
+    }
 
     public function addUser(User $user): self
     {

@@ -68,10 +68,6 @@ class User implements UserInterface
         $this->rooms = new ArrayCollection();
     }
 
-public function __toString()
-{
-   return strval($this->id);
-}
 
     public function getId(): ?int
     {

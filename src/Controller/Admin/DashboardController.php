@@ -28,10 +28,11 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::section('Chambres');
         yield MenuItem::linkToCrud('Chambres', 'fa fa-bed', Room::class);
 
-        yield MenuItem::linkToCrud('Mes Chambres', 'fa fa-bed', Room::class)
-            ->setQueryParameter('filters[toto]', 0);
+        //yield MenuItem::linkToCrud('Mes Chambres', 'fa fa-bed', Room::class)
+        //    ->setQueryParameter('filters[toto]', 0);
         //yield MenuItem::linkToUrl('Mes Chambres', 'fa fa-bed', '#');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
