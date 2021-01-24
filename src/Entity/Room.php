@@ -258,6 +258,7 @@ class Room
     {
         return $this->users;
     }
+
     /**
      * @return Collection|User[]
      */
@@ -266,6 +267,18 @@ class Room
         $ids = [];
         foreach ($this->users as $user):
                 array_push($ids, $user->getId());
+        endforeach;
+        return $ids;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersFirstname()
+    {
+        $ids = [];
+        foreach ($this->users as $user):
+                array_push($ids, $user->getFirstName());
         endforeach;
         return $ids;
     }
