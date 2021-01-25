@@ -206,6 +206,32 @@ class User implements UserInterface
     /**
      * @return Collection|Room[]
      */
+    public function getRoomsNr()
+    {
+        $roomsNr = [];
+        foreach ($this->rooms as $room){
+            array_push($roomsNr, $room->getNumber());
+        }
+        return $roomsNr;
+    }
+
+    /**
+     * @return Collection|Area[]
+     */
+    public function getAreas()
+    {
+        $areas = [];
+        foreach ($this->rooms as $room){
+            if (!in_array($room->getArea(), $areas)) {
+                array_push($areas, $room->getArea());
+            }
+        }
+        return $areas;
+    }
+
+    /**
+     * @return Collection|Room[]
+     */
     public function getRooms(): Collection
     {
         return $this->rooms;

@@ -25,6 +25,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Factory\PaginatorFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -58,21 +59,21 @@ class RoomCrudController extends AbstractCrudController
         return $response;
     }
 
-  /*  public function myRooms(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters){
-        $response = $this->get(EntityRepository::class)
-            ->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
-    }
-*/
+    /*  public function myRooms(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters){
+          $response = $this->get(EntityRepository::class)
+              ->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
+      }
+  */
 
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
             TextField::new('number', 'N°'),
-            TextField::new('area'),
-            ArrayField::new('usersId'),
+            TextField::new('area', 'zone'),
+            DateField::new('updated', 'Modification'),
             ArrayField::new('usersFirstname', 'Attribué à'),
+            ArrayField::new('usersId'),
         ];
     }
 
@@ -84,21 +85,20 @@ class RoomCrudController extends AbstractCrudController
         $addRoom = Action::new('addRoom', '', 'fa fa-plus')
             ->addCssClass(' text-success')
             ->displayIf(function ($entity) {
-                return !in_array($this->getUser()->getId() ,$entity->getUsersId() );
+                return !in_array($this->getUser()->getId(), $entity->getUsersId());
             })
             ->linkToCrudAction('addRoom');
 
         $removeRoom = Action::new('removeRoom', '', 'fa fa-minus')
             ->addCssClass('text-danger')
             ->displayIf(function ($entity) {
-                return in_array($this->getUser()->getId() ,$entity->getUsersId() );
+                return in_array($this->getUser()->getId(), $entity->getUsersId());
             })
             ->linkToCrudAction('removeRoom');
 
         return $actions
             ->add(Crud::PAGE_INDEX, $addRoom)
-            ->add(Crud::PAGE_INDEX, $removeRoom)
-            ;
+            ->add(Crud::PAGE_INDEX, $removeRoom);
     }
 
     public function addRoom(AdminContext $context, Request $request)
@@ -125,32 +125,32 @@ class RoomCrudController extends AbstractCrudController
 
     }
 
-  /*  public function me(AdminContext $context, Request $request, SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters)
-    { dd(parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters));
-//        $result = $this->createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        //$result = parent::createIndexQueryBuilder(($searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters;
-        $result = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('App:Room')
-//            ->findAll();
-            ->findRooms($this->getUser()->getId());
-//      dd($result);
-//        return $this->redirect($this->get(CrudUrlGenerator::class)->build()
-  //          ->setAction(Action::INDEX)->generateUrl());
-foreach ($result as $r){
-    $r->isAccessible = true;
-    $r->primaryKeyValueAsString = $r->getId();
-}
-//dd($result);
+    /*  public function me(AdminContext $context, Request $request, SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters)
+      { dd(parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters));
+  //        $result = $this->createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+          //$result = parent::createIndexQueryBuilder(($searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters;
+          $result = $this->getDoctrine()
+              ->getManager()
+              ->getRepository('App:Room')
+  //            ->findAll();
+              ->findRooms($this->getUser()->getId());
+  //      dd($result);
+  //        return $this->redirect($this->get(CrudUrlGenerator::class)->build()
+    //          ->setAction(Action::INDEX)->generateUrl());
+  foreach ($result as $r){
+      $r->isAccessible = true;
+      $r->primaryKeyValueAsString = $r->getId();
+  }
+  //dd($result);
 
-        $result['isAccessible']=true;
-        return $this->render('bundles/EasyAdminBundle/crud/index.html.twig', [
-            'entities' => $result,
-            'global_actions' => Actions::class,
-            'filters' => FilterFactory::class,
-            'paginator' => $result
-        ]);
-    }
-*/
+          $result['isAccessible']=true;
+          return $this->render('bundles/EasyAdminBundle/crud/index.html.twig', [
+              'entities' => $result,
+              'global_actions' => Actions::class,
+              'filters' => FilterFactory::class,
+              'paginator' => $result
+          ]);
+      }
+  */
 
 }
