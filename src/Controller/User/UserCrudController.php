@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Room;
 use App\Entity\User;
+use App\Service\CTMessenger;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
@@ -23,6 +24,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserCrudController extends AbstractCrudController
 {
+
+    protected $messenger;
+
+    public function __construct(CTMessenger $messenger)
+    {
+        $this->messenger = $messenger;
+    }
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -71,7 +80,18 @@ class UserCrudController extends AbstractCrudController
     public function contact(AdminContext $context, Request $request)
     {
 
-        $this->addFlash("success", "TEST" . $context->getRequest()->query->get('entityId'));
+        $toEntity = $context->getEntity()->getInstance();
+        $user = $this->getUser();
+        $from = $user->getEmail();
+
+        $namefrom = $toEntity->getFirstName().' '.$toEntity->getLastName();
+        $subject = $toEntity->getFirstName().' '.$toEntity->getLastName().' vous a envoyé un message';
+
+        if ($this->messenger->sendEmail($toEntity->getEmail(), $from, $subject, $namefrom)){
+            $this->addFlash("success", "Message envoyé " . $context->getRequest()->query->get('entityId'));
+        } else{
+            $this->addFlash("danger", "Message non envoyé " . $context->getRequest()->query->get('entityId'));
+        }
         return $this->redirect($this->get(CrudUrlGenerator::class)->build()
             ->setAction(Action::INDEX)->generateUrl());
 
