@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Controller\Contact\ContactController;
 use App\Entity\Room;
 use App\Entity\User;
 use App\Service\CTMessenger;
@@ -25,11 +26,11 @@ use Symfony\Component\HttpFoundation\Request;
 class UserCrudController extends AbstractCrudController
 {
 
-    protected $messenger;
+    private $crudUrlGenerator;
 
-    public function __construct(CTMessenger $messenger)
+    public function __construct(CrudUrlGenerator $crudUrlGenerator)
     {
-        $this->messenger = $messenger;
+        $this->crudUrlGenerator = $crudUrlGenerator;
     }
 
     public static function getEntityFqcn(): string
@@ -68,7 +69,8 @@ class UserCrudController extends AbstractCrudController
             ->displayIf(function ($entity) {
                 return ($this->getUser()->getId() !== $entity->getId());
             })
-            ->linkToCrudAction('contact');
+            ->linkToCrudAction('contact')
+           ;
 
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
@@ -80,20 +82,10 @@ class UserCrudController extends AbstractCrudController
     public function contact(AdminContext $context, Request $request)
     {
 
-        $toEntity = $context->getEntity()->getInstance();
-        $user = $this->getUser();
-        $from = $user->getEmail();
-
-        $namefrom = $toEntity->getFirstName().' '.$toEntity->getLastName();
-        $subject = $toEntity->getFirstName().' '.$toEntity->getLastName().' vous a envoyé un message';
-
-        if ($this->messenger->sendEmail($toEntity->getEmail(), $from, $subject, $namefrom)){
-            $this->addFlash("success", "Message envoyé " . $context->getRequest()->query->get('entityId'));
-        } else{
-            $this->addFlash("danger", "Message non envoyé " . $context->getRequest()->query->get('entityId'));
-        }
-        return $this->redirect($this->get(CrudUrlGenerator::class)->build()
-            ->setAction(Action::INDEX)->generateUrl());
+        return $this->redirect($this->generateUrl('contact_user_user', [
+                'id' => $context->getRequest()->query->get('entityId')
+            ]
+        ));
 
     }
 
