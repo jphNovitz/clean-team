@@ -14,7 +14,7 @@ class CTMessenger implements CTMessengerAlias
         $this->mailer = $mailer;
     }
 
-    public function sendEmail($from, $to, $subject, $nameFrom)
+    public function sendEmail($from, $to, $subject, $nameFrom, $message)
     {
 
         $email = (new Email())
@@ -25,8 +25,8 @@ class CTMessenger implements CTMessengerAlias
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
             ->subject($nameFrom.' vous a envoyé un message sur Clean Team')
-            ->text('clean team test message')
-            ->html('<p>Clean Team test message</p>');
+            ->text($message)
+            ->html('<p>'.$message.'</p>');
 
         try {
             $this->mailer->send($email);
