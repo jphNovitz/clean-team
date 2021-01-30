@@ -21,16 +21,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserCrudController extends AbstractCrudController
 {
 
     private $crudUrlGenerator;
+    private  $messenger;
 
-    public function __construct(CrudUrlGenerator $crudUrlGenerator)
+    public function __construct(CrudUrlGenerator $crudUrlGenerator, CTMessenger $messenger)
     {
         $this->crudUrlGenerator = $crudUrlGenerator;
+        $this->messenger = $messenger;
     }
 
     public static function getEntityFqcn(): string
@@ -79,14 +83,49 @@ class UserCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, $contact);
     }
 
-    public function contact(AdminContext $context, Request $request)
+    public function contact(AdminContext $context, User $destination = null, Request $request)
     {
+        $defaultDatas = ["message" => "message"];
+        $form = $this->createFormBuilder($defaultDatas)
+            ->add('message', TextareaType::class)
+            ->add('send', SubmitType::class)
+            ->getForm();
 
-        return $this->redirect($this->generateUrl('contact_user_user', [
-                'id' => $context->getRequest()->query->get('entityId')
-            ]
-        ));
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $userFrom = $this->getUser();
+            $from = $userFrom->getEmail();
+            $nameFrom = $userFrom->getFirstName() . ' ' . $userFrom->getLastName();
+            $subject = $nameFrom . ' vous a envoyé un message';
+            $to = $userFrom->getEmail();
+            $message = $data["message"];
+            if ($this->messenger->sendEmail($to, $from, $subject, $nameFrom, $message)) {
+                $this->addFlash("success", "Message envoyé " . $userFrom->getId());
+            } else {
+                $this->addFlash("danger", "Message non envoyé " . $userFrom->getId());
+            }
+            //return $this->redirect($request->headers->get('referer'));
+            return $this->redirect($this->get(CrudUrlGenerator::class)->build()
+                ->setAction(Action::INDEX)->generateUrl());
+            return $this->redirectToRoute('admin', [
+
+            ]);
+        }
+
+        return $this->render('contact/contact_user_user.html.twig',
+            [
+                'form'=>$form->createView()
+            ]);
+
+
+        /* return $this->redirect($this->generateUrl('contact_user_user', [
+                 'id' => $context->getRequest()->query->get('entityId')
+             ]
+         ));
+         */
     }
 
 }
