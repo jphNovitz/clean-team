@@ -1,8 +1,0 @@
-{% set line = journalLine | first %}
-{% if line is not empty %}
-    {#{{ dump(line.updated) }}#}
-    Fait le {{ line.updated|date("m/d/Y") }}
-{% else %}
-    pas fait
-    <a href="{{ path('journal_action', {'room': room, 'task': task}) }}">action</a>
-{% endif %}
