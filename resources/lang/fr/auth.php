@@ -26,8 +26,17 @@ return [
     'remember_me' => 'rester connecté',
     'Forgot_password' => 'Mot de passe oublié',
     'forgot_password' => 'mot de passe oublié',
+    'login' => 'connexion',
+    'Login' => 'Connexion',
+    'logout' => 'déconnexion',
+    'Logout' => 'Déconnexion',
+    'manage_account' => 'gérer mon compte',
+    'Manage_account' => 'Gérer mon compte',
+    'profile' => 'profil',
+    'Profile' => 'Profil',
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
+

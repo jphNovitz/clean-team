@@ -52,7 +52,7 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    {{ trans('app.Dashboard') }}
                                 </JetNavLink>
                             </div>
                         </div>
@@ -83,23 +83,23 @@ const logout = () => {
                                             <!-- Team Management -->
                                             <template v-if="$page.props.jetstream.hasTeamFeatures">
                                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Manage Team
+                                                   {{ trans('app.Manage_team') }} 
                                                 </div>
 
                                                 <!-- Team Settings -->
                                                 <JetDropdownLink :href="route('teams.show', $page.props.user.current_team)">
-                                                    Team Settings
+                                                   {{ trans('app.Team_settings') }} 
                                                 </JetDropdownLink>
 
                                                 <JetDropdownLink v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')">
-                                                    Create New Team
+                                                    {{ trans('app.Create_team') }}
                                                 </JetDropdownLink>
 
                                                 <div class="border-t border-gray-100" />
 
                                                 <!-- Team Switcher -->
                                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Switch Teams
+                                                    {{ trans('app.Switch_teams') }}
                                                 </div>
 
                                                 <template v-for="team in $page.props.user.all_teams" :key="team.id">
@@ -154,11 +154,11 @@ const logout = () => {
                                     <template #content>
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
+                                            {{ trans('auth.Manage_account') }}
                                         </div>
 
                                         <JetDropdownLink :href="route('profile.show')">
-                                            Profile
+                                             {{ trans('auth.Profile') }}
                                         </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -170,7 +170,7 @@ const logout = () => {
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <JetDropdownLink as="button">
-                                                Log Out
+                                                 {{ trans('auth.Logout') }}
                                             </JetDropdownLink>
                                         </form>
                                     </template>
@@ -234,7 +234,7 @@ const logout = () => {
 
                         <div class="mt-3 space-y-1">
                             <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
-                                Profile
+                                {{ trans('auth.Profile') }}
                             </JetResponsiveNavLink>
 
                             <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
@@ -244,32 +244,32 @@ const logout = () => {
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <JetResponsiveNavLink as="button">
-                                    Log Out
+                                    {{ trans('auth.Logout') }}
                                 </JetResponsiveNavLink>
-                            </form>
+                            </form> 
 
                             <!-- Team Management -->
                             <template v-if="$page.props.jetstream.hasTeamFeatures">
                                 <div class="border-t border-gray-200" />
 
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    Manage Team
+                                    {{ trans('app.Manage_team') }} 
                                 </div>
 
                                 <!-- Team Settings -->
                                 <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)" :active="route().current('teams.show')">
-                                    Team Settings
+                                    {{ trans('app.Team_settings') }}
                                 </JetResponsiveNavLink>
 
                                 <JetResponsiveNavLink v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')" :active="route().current('teams.create')">
-                                    Create New Team
+                                    {{ trans('app.Create_team') }}
                                 </JetResponsiveNavLink>
 
                                 <div class="border-t border-gray-200" />
 
                                 <!-- Team Switcher -->
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    Switch Teams
+                                    {{ trans('app.Switch_teams') }}
                                 </div>
 
                                 <template v-for="team in $page.props.user.all_teams" :key="team.id">
