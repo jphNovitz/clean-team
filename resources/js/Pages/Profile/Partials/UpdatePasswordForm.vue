@@ -7,6 +7,7 @@ import JetFormSection from '@/Components/FormSection.vue';
 import JetInput from '@/Components/Input.vue';
 import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
+import { trans } from "matice"; 
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
@@ -40,16 +41,17 @@ const updatePassword = () => {
 <template>
     <JetFormSection @submitted="updatePassword">
         <template #title>
-            Update Password
+            {{ trans('profile.Update_Password') }}
         </template>
 
         <template #description>
-            Ensure your account is using a long, random password to stay secure.
+            {{ trans('profile.Ensure_secure_password') }}.
+            <!-- Ensure your account is using a long, random password to stay secure. -->
         </template>
 
         <template #form>
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="current_password" value="Current Password" />
+                <JetLabel for="current_password" value="profile.Current_Password" />
                 <JetInput
                     id="current_password"
                     ref="currentPasswordInput"
@@ -62,7 +64,7 @@ const updatePassword = () => {
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="password" value="New Password" />
+                <JetLabel for="password" value="profile.New_Password" />
                 <JetInput
                     id="password"
                     ref="passwordInput"
@@ -75,7 +77,7 @@ const updatePassword = () => {
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="password_confirmation" value="Confirm Password" />
+                <JetLabel for="password_confirmation" value="profile.Confirm_Password" />
                 <JetInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
@@ -93,7 +95,7 @@ const updatePassword = () => {
             </JetActionMessage>
 
             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+                {{trans('btn.Save')}}
             </JetButton>
         </template>
     </JetFormSection>

@@ -9,6 +9,7 @@ import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
 import JetActionMessage from '@/Components/ActionMessage.vue';
 import JetSecondaryButton from '@/Components/SecondaryButton.vue';
+import { trans } from "matice";
 
 const props = defineProps({
     user: Object,
@@ -79,11 +80,11 @@ const clearPhotoFileInput = () => {
 <template>
     <JetFormSection @submitted="updateProfileInformation">
         <template #title>
-            Profile Information
+            {{ trans('profile.Profile_informations') }},
         </template>
 
         <template #description>
-            Update your account's profile information and email address.
+            {{ trans('profile.Update_infos_email') }}.
         </template>
 
         <template #form>
@@ -97,7 +98,7 @@ const clearPhotoFileInput = () => {
                     @change="updatePhotoPreview"
                 >
 
-                <JetLabel for="photo" value="Photo" />
+                <JetLabel for="photo" value="profile.Photo" />
 
                 <!-- Current Profile Photo -->
                 <div v-show="! photoPreview" class="mt-2">
@@ -113,7 +114,7 @@ const clearPhotoFileInput = () => {
                 </div>
 
                 <JetSecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
-                    Select A New Photo
+                    {{trans('profile.Select_new_photo')}}
                 </JetSecondaryButton>
 
                 <JetSecondaryButton
@@ -122,7 +123,7 @@ const clearPhotoFileInput = () => {
                     class="mt-2"
                     @click.prevent="deletePhoto"
                 >
-                    Remove Photo
+                    {{trans('profile.Remove_photo')}}
                 </JetSecondaryButton>
 
                 <JetInputError :message="form.errors.photo" class="mt-2" />
@@ -130,7 +131,7 @@ const clearPhotoFileInput = () => {
 
             <!-- Name -->
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="name" value="Name" />
+                <JetLabel for="name" value="auth.Name" />
                 <JetInput
                     id="name"
                     v-model="form.name"
@@ -143,7 +144,7 @@ const clearPhotoFileInput = () => {
 
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="email" value="Email" />
+                <JetLabel for="email" value="auth.Email" />
                 <JetInput
                     id="email"
                     v-model="form.email"
@@ -180,7 +181,7 @@ const clearPhotoFileInput = () => {
             </JetActionMessage>
 
             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+               {{trans('btn.Save')}}
             </JetButton>
         </template>
     </JetFormSection>
