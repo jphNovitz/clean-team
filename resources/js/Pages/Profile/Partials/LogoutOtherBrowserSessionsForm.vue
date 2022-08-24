@@ -8,6 +8,7 @@ import JetDialogModal from '@/Components/DialogModal.vue';
 import JetInput from '@/Components/Input.vue';
 import JetInputError from '@/Components/InputError.vue';
 import JetSecondaryButton from '@/Components/SecondaryButton.vue';
+import { trans } from "matice"; 
 
 defineProps({
     sessions: Array,
@@ -45,16 +46,16 @@ const closeModal = () => {
 <template>
     <JetActionSection>
         <template #title>
-            Browser Sessions
+            {{trans('profile.Browser_Sessions')}}
         </template>
 
         <template #description>
-            Manage and log out your active sessions on other browsers and devices.
+             {{trans('profile.Browser_session_description')}}.
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.
+                 {{trans('profile.Logout_other_browsers_description')}}.
             </div>
 
             <!-- Other Browser Sessions -->
@@ -114,22 +115,22 @@ const closeModal = () => {
 
             <div class="flex items-center mt-5">
                 <JetButton @click="confirmLogout">
-                    Log Out Other Browser Sessions
+                     {{trans('profile.Logout_other_sessions')}}
                 </JetButton>
 
                 <JetActionMessage :on="form.recentlySuccessful" class="ml-3">
-                    Done.
+                     {{trans('profile.Done')}}.
                 </JetActionMessage>
             </div>
 
             <!-- Log Out Other Devices Confirmation Modal -->
             <JetDialogModal :show="confirmingLogout" @close="closeModal">
                 <template #title>
-                    Log Out Other Browser Sessions
+                    {{trans('profile.Logout_other_sessions')}}
                 </template>
 
                 <template #content>
-                    Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.
+                    {{trans('profile.Password_confirm_logout_other_browsers')}}.
 
                     <div class="mt-4">
                         <JetInput
@@ -147,7 +148,7 @@ const closeModal = () => {
 
                 <template #footer>
                     <JetSecondaryButton @click="closeModal">
-                        Cancel
+                        {{trans('btn.Cancel')}}
                     </JetSecondaryButton>
 
                     <JetButton
@@ -156,7 +157,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="logoutOtherBrowserSessions"
                     >
-                        Log Out Other Browser Sessions
+                        {{trans('btn.Logout_other_browser')}}
                     </JetButton>
                 </template>
             </JetDialogModal>

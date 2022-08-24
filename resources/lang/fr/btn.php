@@ -21,6 +21,8 @@ return [
     'enable' => 'activer',
     'Confirm' => 'J\'accepte',
     'Regenerate_recovery_codes' => 'regénérer les code de récupération',
-    'Show_recovery_codes' => 'Montrer codes de récupération' 
+    'Show_recovery_codes' => 'Montrer codes de récupération', 
+    'Logout_other_browser' => 'Se déconnecter des autres navigateurs',
+    'Delete_Account' => 'Supprimer le Compte',
     ]
 ;

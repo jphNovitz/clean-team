@@ -44,5 +44,16 @@ return [
     'Double_factor_enabled_qr' => 'La double identification est activée, scannez le code QR suivant ou entrez le code dans votre app d\'authentification',
     'Setup_key' => 'Clé',
     'Store_recovery_codes' => 'Stockez ces codes de récupérations dans un application de mot de passe sécurisée, cela pourrait-être utilse si vous perdiez votre téléphone.',
-    '' => '',
+    'Password_confirm_logout_other_browsers' => 'Veuillez introduduire votre mot de passe afin de confirmer la déconnexion de l\'application dans les autres navigateurs',  // Log out other sessions ============ 
+    'Done' => 'Done',
+    'Logout_other_sessions' => 'Se déconnecter des autres navigateurs',
+    'Done' => 'Fait',
+    'Logout_other_browsers_description' => 'Si nécéssaire, vous pouvez vous déconnecter de vos sessions sur les autres navigateurs ou appareils.  Vos autres connexions sont listées ci-dessous (non exhaustif).  Si vous pensez que votre compte pourrait avoir été piraté vous devriez changer de mot de passe',
+    'Browser_Sessions' => 'Sessions',
+    'Browser_session_description' => 'Gérer et se déconnecterr des autres appareils et navigateurs', 
+    'Delete_Account' => 'Suppression du Compte', // Delete Account =====================
+    'Delete_account_perm' => 'Supprimer votre compte définitivement',
+    'Delete_account_description' => 'Une fois votre compte supprimé toutes vos données seront effacées',
+    'Delete_Account' => 'Supprimer le Compte',
+    'Delete_account_confirm' => 'Etes-vous certains de vouloir supprimer votre compte'
 ]; 

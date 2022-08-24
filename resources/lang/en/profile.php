@@ -41,5 +41,16 @@ return [
     'Double_factor_qr' => 'To finish enabling two factor authentication, scan the following QR code using your phone\'s authenticator application or enter the setup key and provide the generated OTP code',
     'Double_factor_enabled_qr' => ' Two factor authentication is now enabled. Scan the following QR code using your phone\'s authenticator application or enter the setup key',
     'Setup_key' => 'Setup Key',
-    'Store_recovery_codes' => 'Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost',
+    'Store_recovery_codes' => 'Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost', 
+    'Password_confirm_logout_other_browsers' => 'Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices',  // Log out other sessions ============ 
+    'Done' => 'Done',
+    'Logout_other_sessions' => 'Log Out Other Browser Sessions',
+    'Logout_other_browsers_description' => 'If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password',
+    'Browser_Sessions' => 'Browser Sessions',
+    'Browser_session_description' => 'Manage and log out your active sessions on other browsers and devices',
+    'Delete_Account' => 'Delete Account', // Delete Account =====================
+    'Delete_account_perm' => 'Permanently delete your account',
+    'Delete_account_description' => 'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain',
+    'Delete_account_confirm' => 'Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account'
+
 ];
