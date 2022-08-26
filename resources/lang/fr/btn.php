@@ -24,5 +24,7 @@ return [
     'Show_recovery_codes' => 'Montrer codes de récupération', 
     'Logout_other_browser' => 'Se déconnecter des autres navigateurs',
     'Delete_Account' => 'Supprimer le Compte',
+    "Add" => "Ajouter",
+    "Create" => "Créer",
     ]
 ;

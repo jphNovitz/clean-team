@@ -14,6 +14,7 @@ import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
 import JetSecondaryButton from '@/Components/SecondaryButton.vue';
 import JetSectionBorder from '@/Components/SectionBorder.vue';
+import { trans } from "matice";
 
 const props = defineProps({
     team: Object,
@@ -99,23 +100,23 @@ const displayableRole = (role) => {
             <!-- Add Team Member -->
             <JetFormSection @submitted="addTeamMember">
                 <template #title>
-                    Add Team Member
+                   {{trans('team.Add_Team_Member')}}
                 </template>
 
                 <template #description>
-                    Add a new team member to your team, allowing them to collaborate with you.
+                     {{trans('team.Add_team_member_description')}}.
                 </template>
 
                 <template #form>
                     <div class="col-span-6">
                         <div class="max-w-xl text-sm text-gray-600">
-                            Please provide the email address of the person you would like to add to this team.
+                         {{trans('team.Add_team_member_form_intro')}}.
                         </div>
                     </div>
 
                     <!-- Member Email -->
                     <div class="col-span-6 sm:col-span-4">
-                        <JetLabel for="email" value="Email" />
+                        <JetLabel for="email" value="auth.Email" />
                         <JetInput
                             id="email"
                             v-model="addTeamMemberForm.email"
@@ -127,7 +128,7 @@ const displayableRole = (role) => {
 
                     <!-- Role -->
                     <div v-if="availableRoles.length > 0" class="col-span-6 lg:col-span-4">
-                        <JetLabel for="roles" value="Role" />
+                        <JetLabel for="roles" value="auth.Role" />
                         <JetInputError :message="addTeamMemberForm.errors.role" class="mt-2" />
 
                         <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
@@ -170,11 +171,11 @@ const displayableRole = (role) => {
 
                 <template #actions>
                     <JetActionMessage :on="addTeamMemberForm.recentlySuccessful" class="mr-3">
-                        Added.
+                        {{trans('app.Added')}}.
                     </JetActionMessage>
 
                     <JetButton :class="{ 'opacity-25': addTeamMemberForm.processing }" :disabled="addTeamMemberForm.processing">
-                        Add
+                        {{trans('btn.Add')}}
                     </JetButton>
                 </template>
             </JetFormSection>
@@ -186,11 +187,11 @@ const displayableRole = (role) => {
             <!-- Team Member Invitations -->
             <JetActionSection class="mt-10 sm:mt-0">
                 <template #title>
-                    Pending Team Invitations
+                    {{trans('team.Team_invitations_pending')}}
                 </template>
 
                 <template #description>
-                    These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation.
+                     {{trans('team.Team_invitations_pending_description')}}.
                 </template>
 
                 <!-- Pending Team Member Invitation List -->

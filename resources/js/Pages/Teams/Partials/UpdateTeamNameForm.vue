@@ -6,6 +6,7 @@ import JetFormSection from '@/Components/FormSection.vue';
 import JetInput from '@/Components/Input.vue';
 import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
+import { trans } from "matice";
 
 const props = defineProps({
     team: Object,
@@ -27,17 +28,17 @@ const updateTeamName = () => {
 <template>
     <JetFormSection @submitted="updateTeamName">
         <template #title>
-            Team Name
+            {{trans('team.Team_Name')}}
         </template>
 
         <template #description>
-            The team's name and owner information.
+            {{trans('team.Team_name_description')}}.
         </template>
 
         <template #form>
             <!-- Team Owner Information -->
             <div class="col-span-6">
-                <JetLabel value="Team Owner" />
+                <JetLabel value="team.Team_Owner" />
 
                 <div class="flex items-center mt-2">
                     <img class="w-12 h-12 rounded-full object-cover" :src="team.owner.profile_photo_url" :alt="team.owner.name">
@@ -53,7 +54,7 @@ const updateTeamName = () => {
 
             <!-- Team Name -->
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="name" value="Team Name" />
+                <JetLabel for="name" value="team.Team_Name" />
 
                 <JetInput
                     id="name"
@@ -69,11 +70,11 @@ const updateTeamName = () => {
 
         <template v-if="permissions.canUpdateTeam" #actions>
             <JetActionMessage :on="form.recentlySuccessful" class="mr-3">
-                Saved.
+                {{trans('app.Saved')}}.
             </JetActionMessage>
 
             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+                 {{trans('btn.Save')}}
             </JetButton>
         </template>
     </JetFormSection>

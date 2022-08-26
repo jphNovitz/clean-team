@@ -23,5 +23,10 @@ return [
     'Create_team' => 'Créer une équipe',
     'switch_teams' => 'Changer d\'équipe',
     'Switch_teams' => 'Changer d\'équipe',
+    "Saved" => "Enregistré",
+    "saved" => "enregistré",
+    "Added" => "Ajouté",
+    "added" => "ajouté",
+    "" => "",
     
 ];

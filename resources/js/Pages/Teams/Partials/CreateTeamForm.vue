@@ -5,6 +5,7 @@ import JetFormSection from '@/Components/FormSection.vue';
 import JetInput from '@/Components/Input.vue';
 import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
+import { trans } from "matice";
 
 const form = useForm({
     name: '',
@@ -21,11 +22,11 @@ const createTeam = () => {
 <template>
     <JetFormSection @submitted="createTeam">
         <template #title>
-            Team Details
+            {{trans('team.Team_Details')}}
         </template>
 
         <template #description>
-            Create a new team to collaborate with others on projects.
+            {{trans('team.Team_details_description')}}.
         </template>
 
         <template #form>
@@ -45,7 +46,7 @@ const createTeam = () => {
             </div>
 
             <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="name" value="Team Name" />
+                <JetLabel for="name" value="team.Team_Name" />
                 <JetInput
                     id="name"
                     v-model="form.name"
@@ -59,7 +60,7 @@ const createTeam = () => {
 
         <template #actions>
             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Create
+                {{trans('btn.Create')}}
             </JetButton>
         </template>
     </JetFormSection>

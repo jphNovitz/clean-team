@@ -4,6 +4,7 @@ import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm.vue';
 import JetSectionBorder from '@/Components/SectionBorder.vue';
 import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager.vue';
 import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm.vue';
+import { trans } from "matice";
 
 defineProps({
     team: Object,
@@ -16,7 +17,7 @@ defineProps({
     <AppLayout title="Team Settings">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Team Settings
+                {{trans('team.Team_Settings')}}
             </h2>
         </template>
 
