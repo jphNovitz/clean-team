@@ -1,13 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import CreateTeamForm from '@/Pages/Teams/Partials/CreateTeamForm.vue';
+import { trans } from "matice";
+
 </script>
 
 <template>
     <AppLayout title="Create Team">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Create Team
+               {{trans('team.Create_Team')}}
             </h2>
         </template>
 

@@ -5,6 +5,7 @@ import JetActionSection from '@/Components/ActionSection.vue';
 import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetDangerButton from '@/Components/DangerButton.vue';
 import JetSecondaryButton from '@/Components/SecondaryButton.vue';
+import { trans } from "matice";
 
 const props = defineProps({
     team: Object,
@@ -27,32 +28,32 @@ const deleteTeam = () => {
 <template>
     <JetActionSection>
         <template #title>
-            {{trans('profile.Delete_Team')}}
+            {{trans('team.Delete_Team')}} 
         </template>
 
         <template #description>
-            {{trans('profile.Delete_team_description')}}
+            {{trans('team.Delete_team_description')}}
         </template>
 
         <template #content>
             <div class="max-w-xl text-sm text-gray-600">
-                 {{trans('profile.Delete_team_confirm_once')}}.
+                 {{trans('team.Delete_team_confirm_once')}}.
             </div>
 
             <div class="mt-5">
                 <JetDangerButton @click="confirmTeamDeletion">
-                     {{trans('profile.Delete_Team')}}
+                     {{trans('team.Delete_Team')}}
                 </JetDangerButton>
             </div>
 
             <!-- Delete Team Confirmation Modal -->
             <JetConfirmationModal :show="confirmingTeamDeletion" @close="confirmingTeamDeletion = false">
                 <template #title>
-                    {{trans('profile.Delete_Team')}}
+                    {{trans('team.Delete_Team')}}
                 </template>
 
                 <template #content>
-                     {{trans('profile.Delete_team_confirm_sure')}}.
+                     {{trans('team.Delete_team_confirm_sure')}}.
                 </template>
 
                 <template #footer>
@@ -66,7 +67,7 @@ const deleteTeam = () => {
                         :disabled="form.processing"
                         @click="deleteTeam"
                     >
-                         {{trans('profile.Delete_Team')}}
+                         {{trans('team.Delete_Team')}}
                     </JetDangerButton>
                 </template>
             </JetConfirmationModal>
