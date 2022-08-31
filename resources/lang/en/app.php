@@ -13,6 +13,16 @@ return [
     |
     */
 
+    'dashboard' => 'dashboard',
+    'Dashboard' => 'Dashboard',
+    'manage_team' => 'manage team',
+    'Manage_team' => 'Manage Team',
+    'team_settings' => 'team Settings',
+    'Team_settings' => 'Team Settings',
+    'create_team' => 'create team',
+    'Create_team' => 'Create Team',
+    'switch_teams' => 'switch teams',
+    'Switch_teams' => 'Switch Team',
     "Saved" => "Saved",
     "saved" => "saved",
     "Added" => "Added",

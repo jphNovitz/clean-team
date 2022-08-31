@@ -28,5 +28,5 @@ return [
     "Added" => "Ajouté",
     "added" => "ajouté",
     "" => "",
-    
+        
 ];

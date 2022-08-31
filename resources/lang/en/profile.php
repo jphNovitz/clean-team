@@ -12,6 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    
 
     'Profile_informations' => 'Profile Information',
     'profile_informations' => 'profile Information',
