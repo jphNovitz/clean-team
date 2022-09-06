@@ -15,10 +15,15 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
             $table->string('name', 125);
             $table->string('description', 255);
-             /** To Do relation with type entity */
+            $table->foreignId('type_id')
+                ->constrained('types')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 

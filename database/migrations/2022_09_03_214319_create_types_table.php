@@ -18,7 +18,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name', 125);
             $table->string('description', 255);
+            
         });
+
     }
 
     /**
