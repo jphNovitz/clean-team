@@ -1,0 +1,50 @@
+@startuml
+
+entity User{
+    id: number <<generated>>  
+    name: string 
+    email: string 
+}
+
+entity Team{
+    id: number <<generated>>
+    name: string
+}
+
+entity Feature{
+    id: number <<generated>>
+    name: string
+
+}
+
+entity Product {
+    id: number <<generated>>
+    name: string
+}
+
+entity Type {
+    id: number <<generated>>
+    name: string
+}
+
+entity MissingProduct{
+    id: number <<generated>>
+    active: boolean
+    reported: boolean
+    quantity: number
+    product_id: <<Fk>>
+}
+
+entity MissingProduct_user{
+    id: number <<generated>>
+    user_id: number <<generated>>
+    missing_product_id: number <<generated>>
+}
+
+Team }o--o{ User
+Team }o--o{ Feature
+Product }o--||Type
+MissingProduct }o--o{ Product 
+MissingProduct }o--o{ MissingProduct_user 
+MissingProduct_user }o--o{ User 
+@enduml
