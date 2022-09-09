@@ -15,6 +15,7 @@ return [
 
     'dashboard' => 'dashboard',
     'Dashboard' => 'Dashboard',
+    "MissongProducts" => "Missong Products",
     'manage_team' => 'manage team',
     'Manage_team' => 'Manage Team',
     'team_settings' => 'team Settings',

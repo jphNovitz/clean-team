@@ -15,6 +15,7 @@ return [
 
     'dashboard' => 'tableau de bord',
     'Dashboard' => 'Tableau de bord',
+    "MissongProducts" =>'Produits Manquants',
     'manage_team' => 'gestion de l\'équipe',
     'Manage_team' => 'Gestion de l\'équipe',
     'team_settings' => 'paramètres de l\'équipe',
