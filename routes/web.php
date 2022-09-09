@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\MissingProductsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,7 +35,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::get('/missing', [MissingProductsController::class, 'index'])->name('missing_products');
     Route::get('/design', function () {
-        return Inertia::render('Design');
+        ;
     })->name('design');
 });
