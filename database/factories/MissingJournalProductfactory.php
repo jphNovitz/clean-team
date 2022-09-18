@@ -17,11 +17,8 @@ class MissingProductsFactory extends Factory
     public function definition()
     {
         return [
-            'active' => true,
-            'reported' => true,
-            'quantity' => $this->faker->numberBetween(0,2),
-            'user_id' => $this->faker->numberBetween(1, 10),
             'product_id' =>$this->faker->numberBetween(1, 10),
+            'user_id' =>$this->faker->numberBetween(1, 10),
         ];
     }
 }
