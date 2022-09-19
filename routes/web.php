@@ -35,7 +35,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/missing', [MissingProductsController::class, 'index'])->name('missing_products');
+    Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
     Route::get('/design', function () {
         ;
     })->name('design');
