@@ -38,16 +38,19 @@ class DatabaseSeeder extends Seeder
     $faker = Faker\Factory::create();
         for ($i = 0  ; $i< 10; $i++){
             $journal = new MissingProducts();
+            //var_dump(gettype($journal)); die; 
             //var_dump($journal->active()); 
             //$journal['active'] = $faker->boolean();
             //$journal['reported'] = $faker->boolean();
+            $journal->product_id = $faker->numberBetween(1, 10); 
+
             if (false == $journal['active']){
-                $journal['quantity'] = $faker->numberBetween(1, 5);
+                $journal['quantity'] = $faker->numberBetween(1, 15);
            }
            $journal->save();
 
             $journal->users()->attach($users->find($faker->numberBetween(1, 10)));
-            $journal->products()->attach($products->find($faker->numberBetween(1, 10)));
+            //$journal->products()->attach($products->find($faker->numberBetween(1, 10)));
                 
 
         }
