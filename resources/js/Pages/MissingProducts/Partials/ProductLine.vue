@@ -2,17 +2,33 @@
 import { computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { usePage } from '@inertiajs/inertia-vue3'
+import { reactive } from 'vue'
 import { trans } from "matice";
+import { useForm } from '@inertiajs/inertia-vue3'
 
+import Button from '@/Components/Button.vue';
 import JetInput from '@/Components/Input.vue';
+import JetActionMessage from '@/Components/ActionMessage.vue';
 
 
 const props = defineProps({
     line: Object,
+    message: String
 });
 
+const form = useForm({
+    id: props.line.id,
+    active: props.line.active,
+    reported: props.line.reported,
+    quantity: props.line.quantity,
+    product_id: props.line.product_id,
+})
+
 const products = usePage().props.value.initialProducts
-var productLine = props.line
+const alert = reactive({
+    message: '',
+    success: false
+})
 
 
 function product(id) {
@@ -20,28 +36,34 @@ function product(id) {
     return products.filter(product => product.id == id)[0]
 }
 
-
-function update() {
-    Inertia.post(route('missing_products_test')), {
-        onSuccess: (res) => {
-            alert()
-        }
-    }
-}
 </script>
 
 <template>
+    {{props.message}}
+    <div class="ml-4 w-full my-12">
 
-    <div class="ml-4 w-full grid grid-cols-4 gap-4 h-20">
-        
-        
-        <span v-if="product(productLine.product_id).type_id == 1">
-            <JetInput type="number" class="!w-16" v-model.number="productLine.quantity" />
-        </span>
-        <div v-else class="!w-16"><input type="checkbox" v-model.number="productLine.reported"> </div>
-        {{product(productLine.product_id).name}}
-        {{product(productLine.product_id).type_id}}
-        <button @click="update">update</button>
+        <form @submit.prevent="form.post(route('missing_products_test'), {
+          preserveScroll: true,
+          onSuccess: () => alert.success = true,
+        })" class="w-full grid grid-cols-12 gap-8 align-middle">
+
+            <div v-if="product(form.product_id).type_id == 1" class="col-span-1">
+                <JetInput type="number" class="w-16" v-model.number="form.quantity" />
+            </div>
+            <div v-else class="col-span-1">
+                <input type="checkbox" v-model.checkbox="form.reported">
+            </div>
+            <div class="col-span-5">
+                {{product(form.product_id).name}}
+                ({{product(form.product_id).type_id}})
+            </div>
+            <div class="col-span-4">
+                <Button type="submit" :disabled="form.processing"> {{trans('btn.Save')}} </Button>
+            </div>
+            <div class="col-span-2">
+                <JetActionMessage :on="alert.success" > {{trans('app.Saved')}}</JetActionMessage>
+            </div>
+        </form>
 
     </div>
 

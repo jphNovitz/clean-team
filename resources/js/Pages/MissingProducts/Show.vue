@@ -17,7 +17,7 @@ const journal = usePage().props.value.journal
     <AppLayout title="Desgin System">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Products 
+                Products  {{props.message}}
             </h2>
         </template>
 
