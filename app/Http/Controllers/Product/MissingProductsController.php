@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Actions\Products\UpdateLine;
 use App\Http\Controllers\Controller;
 use App\Models\MissingProducts;
 use App\Models\Product;
@@ -12,28 +13,26 @@ use Throwable;
 
 class MissingProductsController extends Controller
 {
-    public function index(){
-       
+    public function index()
+    {
+
 
         //dd(MissingProducts::with('products')->get());
-         return Inertia::render('MissingProducts/Show', [
+        return Inertia::render('MissingProducts/Show', [
             'journal' => MissingProducts::with('users')->get(),
-            
-         ]);
+
+        ]);
     }
 
-    public function updateLine(Request $request){
+    public function updateLine(Request $request, UpdateLine $updateLine)
+    {
         try {
-        $product = MissingProducts::where('id', $request['id'])->firstOrFail();
-        
-        $product->active = $request['active'];
-        $product->reported = $request['reported'];
-        $product->quantity = $request['quantity'];
-        $product->product_id = $request['product_id'];
-        $product->save();
-        
-        return redirect()->back()->with(['message'=>'saved']);
-        } catch (Throwable $e){
+            $updateLine->update(
+                MissingProducts::where('id', $request['id'])->firstOrFail(),
+                $request->all()
+            );
+            return redirect()->back()->with(['message' => 'saved']);
+        } catch (Throwable $e) {
             // Report
         }
     }
