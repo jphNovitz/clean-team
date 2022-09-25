@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Throwable;
 
 class MissingProductsController extends Controller
 {
@@ -16,7 +17,24 @@ class MissingProductsController extends Controller
 
         //dd(MissingProducts::with('products')->get());
          return Inertia::render('MissingProducts/Show', [
-            'journal' => MissingProducts::with('products')->get()
+            'journal' => MissingProducts::with('users')->get(),
+            
          ]);
+    }
+
+    public function updateLine(Request $request){
+        try {
+        $product = MissingProducts::where('id', $request['id'])->firstOrFail();
+        
+        $product->active = $request['active'];
+        $product->reported = $request['reported'];
+        $product->quantity = $request['quantity'];
+        $product->product_id = $request['product_id'];
+        $product->save();
+        
+        return redirect()->back()->with(['message'=>'saved']);
+        } catch (Throwable $e){
+            // Report
+        }
     }
 }
