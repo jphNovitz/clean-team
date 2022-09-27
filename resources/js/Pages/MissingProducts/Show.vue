@@ -37,8 +37,8 @@ const journal = usePage().props.value.journal
                             <div class="md:col-span-5">Nom </div>
                             <div class="md:col-span-2"> </div>
                             <div class="md:col-span-1"> </div>
-                            <div class="md:col-span-2"> Création </div>
-                            <div class="md:col-span-2"> Modification </div>
+                            <!-- <div class="hidden 2xl:grid 2xl:col-span-2"> Création </div> -->
+                            <div class="hidden md:grid md:col-span-2"> Modification </div>
                         </div>
                         <div v-for="line in journal" :key="line.id" class="flex items-center justify-between odd:bg-indigo-50">
                             <ProductLine :line="line"></ProductLine>

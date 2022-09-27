@@ -1,12 +1,11 @@
 <script setup>
 import { computed } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import { ref, watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { reactive } from 'vue'
 import { trans } from "matice";
 import { useForm } from '@inertiajs/inertia-vue3'
-// import moment from "moment" ;
-// import 'moment/locale/fr' ;
 import moment from 'moment-with-locales-es6';
 
 
@@ -44,11 +43,14 @@ function product(id) {
     return products.filter(product => product.id == id)[0]
 }
 
+watch(alert, async () => {
+    if (alert.success) setTimeout(function() { alert.message = '', alert.success = false }, 3000);
+})
 </script>
 
 <template>
     {{props.message}}
-    <div class="w-full py-2 px-2 flex items-center py-2.5 md:py-1  border-t border-t-slate-200">
+    <div class="w-full py-2 px-2 flex items-center  md:py-1  border-t border-t-slate-200">
         
         <form @submit.prevent="form.post(route('missing_products_test'), {
           preserveScroll: true,
@@ -71,15 +73,15 @@ function product(id) {
             <div class="col-span-1 md:col-span-1">
                 <Button type="submit" :disabled="form.processing"> <ArrowPathIcon class="w-4" /> </Button>
             </div>
-            <div class="hidden md:grid md:col-span-2">
+            <!-- <div class="hidden 2xl:grid md:col-span-2">
                 {{ moment(props.line.created_at).format("l") }}
-            </div>
+            </div> -->
             <div class="hidden md:grid md:col-span-2">
                 {{ moment(props.line.updated_at).format("l") }}
             </div>
-            <!-- <div class="col-span-2">
+            <div class="col-span-2">
                 <JetActionMessage :on="alert.success"> {{trans('app.Saved')}}</JetActionMessage>
-            </div> -->
+            </div>
         </form>
 
     </div>
