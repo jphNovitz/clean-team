@@ -39,7 +39,6 @@ const alert = reactive({
 
 
 function product(id) {
-
     return products.filter(product => product.id == id)[0]
 }
 
@@ -50,7 +49,7 @@ watch(alert, async () => {
 
 <template>
     {{props.message}}
-    <div class="w-full py-2 px-2 flex items-center  md:py-1  border-t border-t-slate-200">
+    <div class="w-full py-2 px-2 flex items-center  md:py-1  border-t border-t-indigo-50  border-b border-b-indigo-50 ">
         
         <form @submit.prevent="form.post(route('missing_products_test'), {
           preserveScroll: true,
