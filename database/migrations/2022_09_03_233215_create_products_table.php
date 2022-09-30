@@ -18,6 +18,8 @@ return new class extends Migration
 
             $table->string('name', 125);
             $table->string('description', 255);
+            $table->boolean('default')->default(true);
+
             $table->foreignId('type_id')
                 ->constrained('types')
                 ->onUpdate('cascade')
