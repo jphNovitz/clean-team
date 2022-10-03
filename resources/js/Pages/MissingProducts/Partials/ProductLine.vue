@@ -28,7 +28,7 @@ const props = defineProps({
 const form = useForm({
     id: props.product.id,
     name: props.product.name,
-    default: props.product.default,
+    default: !!props.product.default,
     type_id: props.product.type_id
 })
 
@@ -44,7 +44,14 @@ const alert = reactive({
 // }
 
 watch(alert, async () => {
-    if (alert.success) setTimeout(function () { alert.message = '', alert.success = false }, 3000);
+    if (alert.success) {
+        setTimeout(function () { 
+            alert.message = '', alert.success = false
+            Inertia.visit('missing') 
+        }, 3000);
+        // setTimeout(function () { Inertia.reload() }, 5000)
+        // setTimeout(function () { Inertia.visit('missing') }, 3001)
+    }
 })
 </script>
 
@@ -53,9 +60,12 @@ watch(alert, async () => {
     <div
         class="w-full py-2 px-2 flex justify-center items-center  md:py-1  border-t border-t-indigo-50  border-b border-b-indigo-50 ">
 
-        <form @submit.prevent="form.post(route('missing_products_test'), {
+        <form @submit.prevent="form.put(route('update_product'), {
           preserveScroll: true,
-          onSuccess: () => alert.success = true,
+          onSuccess: () => {
+            alert.success = true
+        
+        }
         })" class="w-full items-center grid grid-cols-3 md:grid-cols-12 gap-6">
 
             <div class="col-span-3 md:col-span-5  items-start text-xl md:text-lg flex flex-col  ">
@@ -73,7 +83,7 @@ watch(alert, async () => {
             </div>
             <div class="col-span-1 md:col-span-1">
                 <JetLabel class="md:hidden"> Par défaut </JetLabel>
-                <Checkbox v-model="form.default" />
+                <Checkbox :checked="form.default" v-model="form.default" />
             </div>
             <div class="col-span-1 md:col-span-2">
                 <Button type="submit" :disabled="form.processing">

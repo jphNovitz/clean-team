@@ -57,7 +57,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                     </template>
 
                     <template #content>
-                        <div class="flex justify-start my-4">
+                        <!-- <div class="flex justify-start my-4">
                             <label for="default-consumable" class="inline-flex relative items-center cursor-pointer">
                                 <input type="checkbox" value="" id="default-consumable" v-model="showConsumable"
                                     class="sr-only peer">
@@ -76,12 +76,12 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                                 <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">Afficher
                                     Linge</span>
                             </label>
-                        </div>
+                        </div> -->
                         <div
                             class="hidden w-full items-center md:grid md:grid-cols-12 gap-6 bg-indigo-200 text-indigo-900 py-2 px-2">
                             <div class="md:col-span-5">Nom </div>
-                            <div class="md:col-span-2"> </div>
-                            <div class="md:col-span-1"> </div>
+                            <div class="md:col-span-2">Type</div>
+                            <div class="md:col-span-1">Par défaut</div>
                             <!-- <div class="hidden 2xl:grid 2xl:col-span-2"> Création </div> -->
                             <div class="hidden md:grid md:col-span-2"> Modification </div>
                         </div>

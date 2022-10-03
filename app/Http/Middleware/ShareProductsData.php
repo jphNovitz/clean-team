@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ShareProductsData
@@ -10,7 +11,7 @@ class ShareProductsData
     public function handle($request, $next)
     {
         Inertia::share([
-            'products' => Product::all(),
+            'initialProducts' => Product::all(),
         ]);
 
         return $next($request);
