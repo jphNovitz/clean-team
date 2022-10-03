@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Product\MissingProductsController;
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +37,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
+    Route::post('', [MissingProductsController::class, 'updateLine'])->middleware('share_products')->name('missing_products_test');
+    Route::put('', [ProductController::class, 'update'])->middleware('share_products')->name('update_product');
     Route::get('/design', function () {
         ;
     })->name('design');
