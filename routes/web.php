@@ -38,6 +38,7 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
     Route::post('', [MissingProductsController::class, 'updateLine'])->middleware('share_products')->name('missing_products_test');
+    Route::post('', [ProductController::class, 'create'])->name('create_product');
     Route::put('', [ProductController::class, 'update'])->middleware('share_products')->name('update_product');
     Route::get('/design', function () {
         ;
