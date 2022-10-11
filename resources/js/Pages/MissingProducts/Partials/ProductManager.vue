@@ -7,19 +7,23 @@ import { reactive } from 'vue'
 import { trans } from "matice";
 import { useForm } from '@inertiajs/inertia-vue3'
 import JetActionSection from '@/Components/ActionSection.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+
 import ProductLine from '@/Pages/MissingProducts/Partials/ProductLine.vue'
+import CreateProduct from '@/Pages/MissingProducts/Partials/CreateProduct.vue'
 
 
 const products = usePage().props.value.initialProducts
 const showConsumable = ref(false)
 const showLinens = ref(true)
 const showOddColor = ref(false)
+const showAddProductForm = ref(false)
 
 </script>
 
 <template>
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        <JetActionSection class="mt-10 sm:mt-0" >
+        <JetActionSection class="mt-10 sm:mt-0">
             <template #title>
                 Product Manager <div class="flex justify-center">
                 </div>
@@ -50,7 +54,12 @@ const showOddColor = ref(false)
                                     Linge</span>
                             </label>
                         </div> -->
+                <SecondaryButton class="mb-5" @click.prevent="showAddProductForm = !showAddProductForm">
+                    <span v-if="showAddProductForm">hide</span>
+                    <span v-else="showAddProductForm">{{trans('app.Add_product')}}</span>
+                </SecondaryButton>
 
+                <CreateProduct v-if="showAddProductForm" />
                 <div class="w-full flex md:table md:border-collapse rounded-md border-b shadow-xl overflow-hidden p-0 ">
                     <div class="hidden md:table-header-group bg-indigo-200 text-indigo-900 ">
                         <div class="md:table-row ">
