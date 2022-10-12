@@ -51,7 +51,7 @@ function submit(){
     <div class="w-full my-5 flex flex-col gap-y-9">
         <div class="flex flex-col w-96">
             <JetLabel class="mb-2"> {{trans('auth.Name')}} </JetLabel>
-            <JetInput type="text" id="name" name="name" />
+            <JetInput v-model="form.name" type="text" id="name" name="name" />
         </div>
         <div class="flex flex-row">
             <div class="w-40">

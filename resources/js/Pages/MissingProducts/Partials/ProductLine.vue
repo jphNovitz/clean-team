@@ -16,7 +16,7 @@ import { TrashIcon } from '@heroicons/vue/20/solid'
 import JetLabel from '@/Components/Label.vue';
 import JetInput from '@/Components/Input.vue';
 import Checkbox from '@/Components/Checkbox.vue';
-import JetActionMessage from '@/Components/ActionMessage.vue';
+import JetActionMessage from '@/Components/ActionMessage.vue'
 
 const props = defineProps({
     product: Object,

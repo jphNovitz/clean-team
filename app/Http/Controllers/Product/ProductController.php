@@ -9,6 +9,21 @@ use Throwable;
 
 class ProductController extends Controller
 {
+    public function create(Request $request)
+    {
+        try{
+           $product =  new Product ;
+           $product->name = $request['name'];
+           $product->default = $request['default'];
+           $product->type_id = $request['type_id'];
+           $product->save();
+                   
+            return redirect()->route('missing_products')->with(['message' => 'created']);
+        } catch (Throwable $e) {
+            dd($e);
+            // Report
+        }
+    }
     public function update(Request $request)
     {
 
