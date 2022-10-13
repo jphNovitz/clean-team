@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('name', 125);
-            $table->string('description', 255);
+            $table->string('description', 255)->nullable(true);
             $table->boolean('default')->default(true);
 
             $table->foreignId('type_id')

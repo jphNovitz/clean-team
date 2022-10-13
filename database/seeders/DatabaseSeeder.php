@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             //$journal['active'] = $faker->boolean();
             //$journal['reported'] = $faker->boolean();
             $journal->product_id = $faker->numberBetween(1, 10); 
+            $journal->team_id = $faker->numberBetween(1, 10); 
 
             if (false == $journal['active']){
                 $journal['quantity'] = $faker->numberBetween(1, 15);

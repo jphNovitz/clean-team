@@ -14,12 +14,9 @@ use Throwable;
 class MissingProductsController extends Controller
 {
     public function index()
-    {
-
-
-        //dd(MissingProducts::with('products')->get());
+    {        
         return Inertia::render('MissingProducts/Show', [
-            'journal' => MissingProducts::with('users')->get(),
+            'journal' => MissingProducts::where('team_id', auth()->user()->currentTeam->id)->get(),
 
         ]);
     }

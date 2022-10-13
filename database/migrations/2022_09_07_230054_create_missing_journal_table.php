@@ -23,6 +23,11 @@ return new class extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')
                 ->onDelete('cascade');
+            
+            $table->bigInteger('team_id')->unsigned(); 
+            $table->foreign('team_id')
+                ->references('id')->on('teams')
+                ->onDelete('cascade');
 
 
             /* $table->bigInteger('user_id')->unsigned();
