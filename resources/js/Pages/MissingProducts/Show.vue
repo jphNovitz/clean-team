@@ -2,6 +2,7 @@
 import { ref, watch, reactive, computed } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue';
 import JetActionSection from '@/Components/ActionSection.vue';
+import JetModal from '@/Components/Modal.vue';
 import JournalLine from '@/Pages/MissingProducts/Partials/JournalLine.vue'
 import ProductLine from '@/Pages/MissingProducts/Partials/ProductLine.vue'
 import ProductManager from '@/Pages/MissingProducts/Partials/ProductManager.vue'
@@ -10,8 +11,12 @@ import { Inertia } from '@inertiajs/inertia';
 import { usePage } from '@inertiajs/inertia-vue3'
 import { trans } from "matice";
 import Button from '@/Components/Button.vue';
+import Header2 from '@/Components/Titles/Header2.vue'
 import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
 import { Cog6ToothIcon } from '@heroicons/vue/20/solid'
+import { PlusIcon } from '@heroicons/vue/20/solid'
+import Modal from '@/Components/Modal.vue';
+import route from '../../../../vendor/tightenco/ziggy/src/js';
 
 const journal = usePage().props.value.journal
 const products = usePage().props.value.initialProducts
@@ -19,7 +24,9 @@ const showConsumable = ref(false)
 const showLinens = ref(true)
 const showOddColor = ref(false)
 const showManager = ref(false)
-
+const showSecondaryMenu = ref(false)
+var showAddModal = ref(false)
+var state = reactive({ available: [] })
 
 function typeID(productID) {
     return products.filter(product => product.id == productID)[0].type_id
@@ -39,6 +46,27 @@ function toggleManger() {
     else showManager = false
 }
 
+watch(showAddModal, async () => {
+    if (showAddModal)
+        axios
+            .get(route('products_not_in_journal'))
+            .then(response => {
+                state.available = response.data
+            })
+})
+
+function addProductToJournal(id) {
+    axios
+        .put(route('add_product_in_journal'), {'id': id})
+        .then(response => {
+            if(response.status === 200){
+                
+            }
+            })
+         showAddModal = false    
+}
+
+
 watch([showConsumable, showLinens], async () => showOddColor.value = (showConsumable.value === showLinens.value))
 
 
@@ -52,14 +80,15 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Products
                 </h2>
-                <div class="absolute right-5 top-0 text-gray-800 flex">
+                <div class="absolute right-5 top-0 text-gray-800 flex w-7 h-7 overflow-hidden justify-end md:w-max md:h-auto "
+                    :class="{'w-max h-max flex-col-inverse' : showSecondaryMenu}">
                     <button class="inline-block" @click.prevent="showManager = !showManager">
                         <Cog6ToothIcon class="w-4 inline" />
                         Product Manger
                     </button>
-                    <a>
+                    <button class="inline-block" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
                         <EllipsisVerticalIcon class="w-5 " />
-                    </a>
+                    </button>
                 </div>
             </div>
         </template>
@@ -99,6 +128,9 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                                 <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">Afficher
                                     Linge</span>
                             </label>
+                            <Button class="rounded-full" @click.prevent="showAddModal = !showAddModal">
+                                <PlusIcon class="w-4" />
+                            </Button>
                         </div>
                         <div
                             class="hidden w-full items-center md:grid md:grid-cols-12 gap-6 bg-indigo-200 text-indigo-900 py-2 px-2">
@@ -116,8 +148,19 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                     </template>
 
                 </JetActionSection>
+
             </div>
 
         </div>
+        <JetModal :show='showAddModal'>
+            <div class="p-5">
+                <Header2 class="pb-5">Add_product</Header2>
+                <div class="grid grid-cols-3" v-for="product in state.available">
+                    <div class="col-span-2 p-3">{{product.name}}</div>
+                    <div class="p-3"><Button @click.prevent="addProductToJournal(product.id), showAddModal = !showAddModal">app.add</Button></div>
+
+                </div>
+            </div>
+        </JetModal>
     </AppLayout>
 </template>

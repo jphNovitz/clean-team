@@ -38,7 +38,7 @@ Route::middleware([
     })->name('dashboard');
     Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
     Route::get('', [MissingProductsController::class, 'productsNotInJournal'])->name('products_not_in_journal');
-    Route::put('', [MissingProductsController::class, 'addProductInJournal'])->name('add_product_in_journal');
+    Route::put('missing/add_product_journal', [MissingProductsController::class, 'addProductInJournal'])->name('add_product_in_journal');
     Route::post('', [MissingProductsController::class, 'updateLine'])->middleware('share_products')->name('missing_products_test');
     Route::post('', [ProductController::class, 'create'])->name('create_product');
     Route::put('', [ProductController::class, 'update'])->middleware('share_products')->name('update_product');
