@@ -19,7 +19,6 @@ class MissingProductsController extends Controller
 
         return Inertia::render('MissingProducts/Show', [
             'journal' => MissingProducts::where('team_id', auth()->user()->currentTeam->id)->get(),
-
         ]);
     }
 
@@ -36,31 +35,45 @@ class MissingProductsController extends Controller
         }
     }
 
-    public function productsNotInJournal(Request $request){
+    public function productsNotInJournal(Request $request)
+    {
+   
+        $existing_lines_current_team = DB::table('missing_products')
+            ->select('missing_products.product_id')
+            ->where('team_id', '=', auth()->user()->currentTeam->id)
+            ->distinct()
+            ->get()
+            ->toArray();
+            
+        $filtered = array_map(function($v){
+            return $v->product_id ;
+        }, $existing_lines_current_team);
+
+        
         
         $available_products = DB::table('products')
-            ->leftJoin('missing_products', 'products.id', '=', 'missing_products.product_id')
-            ->select('products.name', 'products.id')
-            ->where('missing_products.team_id', '!=', auth()->user()->currentTeam->id )
-            ->get(); 
+            ->select('products.*')
+            ->whereNotIn('id', $filtered)
+            ->distinct()
+            ->orderBy('products.id', 'ASC')
+            ->get();
 
         return response()->json($available_products);
-
     }
 
-    public function addProductInJournal(Request $request){
+    public function addProductInJournal(Request $request)
+    {
 
-        try{
-        $journal = new MissingProducts();
+        try {
+            $journal = new MissingProducts();
 
-        $journal->team_id = auth()->user()->currentTeam->id;
-        $journal->product_id = $request['id'];
+            $journal->team_id = auth()->user()->currentTeam->id;
+            $journal->product_id = $request['id'];
 
-        
-        $journal->save();
 
-        $this->middleware('SharedProductsData');
-        return response()->json('success');
+            $journal->save();
+
+            return response()->json('success');
         } catch (Throwable $e) {
             return response()->json($e);
         }

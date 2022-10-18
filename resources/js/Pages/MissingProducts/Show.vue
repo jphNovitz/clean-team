@@ -60,7 +60,7 @@ function addProductToJournal(id) {
         .put(route('add_product_in_journal'), {'id': id})
         .then(response => {
             if(response.status === 200){
-                
+
             }
             })
          showAddModal = false    
@@ -155,10 +155,13 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
         <JetModal :show='showAddModal'>
             <div class="p-5">
                 <Header2 class="pb-5">Add_product</Header2>
-                <div class="grid grid-cols-3" v-for="product in state.available">
-                    <div class="col-span-2 p-3">{{product.name}}</div>
+                <div v-if="state.available" class="grid grid-cols-3" v-for="product in state.available">
+                    <div class="col-span-2 p-3">{{product.name}} ({{product.id}})</div>
                     <div class="p-3"><Button @click.prevent="addProductToJournal(product.id), showAddModal = !showAddModal">app.add</Button></div>
 
+                </div>
+                <div v-else>
+                        Loading
                 </div>
             </div>
         </JetModal>
