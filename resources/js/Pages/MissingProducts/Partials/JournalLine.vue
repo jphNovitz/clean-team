@@ -28,7 +28,7 @@ const form = useForm({
     id: props.line.id,
     active: props.line.active,
     reported: props.line.reported,
-    quantity: props.line.quantity,
+    quantity: String(props.line.quantity),
     product_id: props.line.product_id,
 })
 
@@ -67,7 +67,7 @@ watch(alert, async () => {
                 <JetInput v-if="product(form.product_id).type_id == 1"  
                 type="number" 
                 class="w-3/4 " 
-                v-model.number="form.quantity" />
+                v-model="form.quantity" />
                 <input v-else type="checkbox" v-model.checkbox="form.reported">
             </div>
             <!-- <div class="col-span-1">
