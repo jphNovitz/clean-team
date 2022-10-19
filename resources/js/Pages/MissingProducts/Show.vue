@@ -16,24 +16,26 @@ import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
 import { Cog6ToothIcon } from '@heroicons/vue/20/solid'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 import Modal from '@/Components/Modal.vue';
-import route from '../../../../vendor/tightenco/ziggy/src/js';
 
-const journal = usePage().props.value.journal
-const products = usePage().props.value.initialProducts
+// const journal = usePage().props.value.journal
+// const products = usePage().props.value.initialProducts
 const showConsumable = ref(false)
 const showLinens = ref(true)
 const showOddColor = ref(false)
 const showManager = ref(false)
 const showSecondaryMenu = ref(false)
 var showAddModal = ref(false)
-var state = reactive({ available: [] })
+var state = reactive({ 
+    available: [],
+    products: usePage().props.value.initialProducts
+})
 
 function typeID(productID) {
-    return products.filter(product => product.id == productID)[0].type_id
+    return state.products.filter(product => product.id == productID)[0].type_id
 }
 
 function showComponent(productID) {
-    switch (products.filter(product => product.id == productID)[0].type_id) {
+    switch (state.products.filter(product => product.id == productID)[0].type_id) {
         case 1:
             return showLinens.value
         case 2:
@@ -56,14 +58,21 @@ watch(showAddModal, async () => {
 })
 
 function addProductToJournal(id) {
-    axios
-        .put(route('add_product_in_journal'), {'id': id})
-        .then(response => {
-            if(response.status === 200){
-
-            }
-            })
-         showAddModal = false    
+    // axios
+    //     .put(route('add_product_in_journal'), {'id': id})
+    //     .then(response => {
+    //         if(response.status === 200){
+    //            Inertia.reload({ only: ['products']})
+    //         }
+    //         })
+    Inertia.put(route('add_product_in_journal'), { 'id': id }, {
+        preserveScroll: true,
+        resetOnSuccess: false,
+        onSuccess: () => {
+            console.log('success')
+        }
+    })
+    showAddModal = false
 }
 
 
@@ -100,7 +109,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <JetActionSection class="mt-10 sm:mt-0">
                     <template #title>
-                        Missing Products <div class="flex justify-center">
+                        Missing Products <div class="flex justify-center"> 
                         </div>
                     </template>
 
@@ -140,7 +149,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                             <!-- <div class="hidden 2xl:grid 2xl:col-span-2"> Création </div> -->
                             <div class="hidden md:grid md:col-span-2"> Modification </div>
                         </div>
-                        <div v-for="line in journal" :key="line.id"
+                        <div v-for="line in $page.props.journal" :key="line.id"
                             class="flex items-center justify-between transition-colors ease-in-out delay-150 duration-1000"
                             :class="{'odd:bg-indigo-50' : showOddColor}">
                             <JournalLine :line="line" v-if="showComponent(line.product_id)" />
@@ -152,16 +161,19 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             </div>
 
         </div>
+         <!-- MODAL : list of products available to add - create journal line with -->
         <JetModal :show='showAddModal'>
             <div class="p-5">
                 <Header2 class="pb-5">Add_product</Header2>
                 <div v-if="state.available" class="grid grid-cols-3" v-for="product in state.available">
                     <div class="col-span-2 p-3">{{product.name}} ({{product.id}})</div>
-                    <div class="p-3"><Button @click.prevent="addProductToJournal(product.id), showAddModal = !showAddModal">app.add</Button></div>
+                    <div class="p-3"><Button
+                            @click.prevent="addProductToJournal(product.id), showAddModal = !showAddModal">app.add</Button>
+                    </div>
 
                 </div>
                 <div v-else>
-                        Loading
+                    Loading
                 </div>
             </div>
         </JetModal>
