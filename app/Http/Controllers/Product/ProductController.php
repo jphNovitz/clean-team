@@ -18,7 +18,8 @@ class ProductController extends Controller
            $product->type_id = $request['type_id'];
            $product->save();
                    
-            return redirect()->route('missing_products')->with(['message' => 'created']);
+            // return redirect()->route('missing_products')->with(['message' => 'created']);
+            return redirect()->back();
         } catch (Throwable $e) {
             dd($e);
             // Report

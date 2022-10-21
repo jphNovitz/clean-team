@@ -73,7 +73,10 @@ class MissingProductsController extends Controller
 
             $journal->save();
 
-            return response()->json('success');
+            // return response()->json('success');
+
+            return redirect()->back();
+
         } catch (Throwable $e) {
             return response()->json($e);
         }

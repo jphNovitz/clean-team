@@ -30,7 +30,7 @@ watch(alert, async () => {
     if (alert.success) {
         setTimeout(function () {
             alert.message = '', alert.success = false
-            Inertia.visit('missing')
+            // Inertia.visit('missing')
         }, 3000);
 
     }

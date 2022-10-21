@@ -13,7 +13,7 @@ import ProductLine from '@/Pages/MissingProducts/Partials/ProductLine.vue'
 import CreateProduct from '@/Pages/MissingProducts/Partials/CreateProduct.vue'
 
 
-const products = usePage().props.value.initialProducts
+// const products = usePage().props.value.initialProducts
 const showConsumable = ref(false)
 const showLinens = ref(true)
 const showOddColor = ref(false)
@@ -30,7 +30,7 @@ const showAddProductForm = ref(false)
             </template>
 
             <template #description>
-                Gerer les produits
+                Gerer les produits 
             </template>
 
             <template #content>
@@ -71,10 +71,10 @@ const showAddProductForm = ref(false)
                         </div>
                     </div>
                     <div class="w-full flex flex-col md:table-row-group">
-                        <div v-for="product in products" :key="product.id"
+                        <div v-for="product in $page.props.initialProducts" :key="product.id"
                             class="grid grid-cols-3 gap-4 text-xl border-b border-b-slate-200 md:table-row transition-colors ease-in-out delay-150 duration-1000"
                             :class="{'odd:bg-indigo-50' : showOddColor, 'border-l-4 border-green-custom rounded-l-md' : product.type_id === 1}, {'border-l-4 border-red-custom rounded-l-md' : product.type_id === 2}">
-                            <ProductLine :product="product" class="" />
+                            <ProductLine :product="product"  />
                         </div>
                     </div>
                 </div>
