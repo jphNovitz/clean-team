@@ -14,6 +14,8 @@ use Throwable;
 
 class MissingProductsController extends Controller
 {
+
+
     public function index()
     {
 
@@ -37,20 +39,20 @@ class MissingProductsController extends Controller
 
     public function productsNotInJournal(Request $request)
     {
-   
+
         $existing_lines_current_team = DB::table('missing_products')
             ->select('missing_products.product_id')
             ->where('team_id', '=', auth()->user()->currentTeam->id)
             ->distinct()
             ->get()
             ->toArray();
-            
-        $filtered = array_map(function($v){
-            return $v->product_id ;
+
+        $filtered = array_map(function ($v) {
+            return $v->product_id;
         }, $existing_lines_current_team);
 
-        
-        
+
+
         $available_products = DB::table('products')
             ->select('products.*')
             ->whereNotIn('id', $filtered)
@@ -76,11 +78,54 @@ class MissingProductsController extends Controller
             // return response()->json('success');
 
             return redirect()->back();
-
         } catch (Throwable $e) {
             return response()->json($e);
         }
         // return redirect()->back()->with(['message' => 'saved']); 
 
+    }
+
+    public function report()
+    { 
+        // TODO create a table to store ids name and teamid => possiblity of recreate report in the future
+
+        // Get the lists of ids
+        $rowIds = DB::table('missing_products')
+        ->select('missing_products.id as id')
+        ->where('team_id', '=', auth()->user()->currentTeam->id)
+        ->where('reported', "=", "false")
+        ->get();
+        foreach($rowIds as $item){
+            $ids[] = $item->id;
+        }
+
+        // The object to be stored
+        $give_me_a_name = [
+            'name' => date('m-d-Y_hia'),
+            'team_id' => auth()->user()->currentTeam->id,
+            'ids' => json_encode($rowIds)
+        ];
+
+        dd($give_me_a_name);
+        dd($ids);
+
+        
+        $journal = DB::table('missing_products')
+            ->leftJoin('products', 'products.id', '=', 'missing_products.product_id')
+            ->select('missing_products.id as id', 'missing_products.active as active', 'missing_products.quantity as quantity', 
+                       'missing_products.reported as reported', 'missing_products.team_id as team_id', 'missing_products.created_at as created_at', 'missing_products.updated_at as updated_at', 
+                       'products.name as name', 'products.type_id as type_id', 'products.description as description')
+            ->where('team_id', '=', auth()->user()->currentTeam->id)
+            ->where('reported', "=", "false")
+            ->get();
+            
+            foreach ($journal as $line){
+                if($line->type_id === 1)
+                    $grouped[1][] = $line; 
+                else $grouped[2][] = $line;
+            }
+            asort($grouped);
+
+        die('ok');
     }
 }
