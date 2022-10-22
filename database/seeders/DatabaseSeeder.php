@@ -49,7 +49,6 @@ class DatabaseSeeder extends Seeder
                 $journal['quantity'] = $faker->numberBetween(1, 15);
            }
            $journal->save();
-
             $journal->users()->attach($users->find($faker->numberBetween(1, 10)));
             //$journal->products()->attach($products->find($faker->numberBetween(1, 10)));
                 
