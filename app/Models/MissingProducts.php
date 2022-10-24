@@ -13,10 +13,16 @@ class MissingProducts extends Model
     protected $fillable = ['active', 'reported', 'quantity'];
 
     public function users(){
-        return $this->belongsToMany(User::class, 'user');
+        return $this->belongsToMany(User::class, 'missing_products_users');
     }
 
-    public function products(){
-        return $this->belongsToMany(Product::class, 'product');
+    public function product(){
+        return $this->hasOne(Product::class);
     }
+
+    public function archive(){
+        return $this->BelongsTo(MissingArchives::class, 'archive_id');
+    }
+
+    
 }

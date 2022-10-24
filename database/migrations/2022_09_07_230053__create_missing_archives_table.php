@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('missing_products_ids_archive', function (Blueprint $table) {
+        Schema::create('missing_archives', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('name', 30);
-            $table->bigInteger('team_id');
-            $table->string('ids', 255);
+            $table->string('name');
+            $table->bigInteger('team_id')->unsigned();
 
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('missing_products_ids_archive');
+        Schema::dropIfExists('missing_archives');
     }
 };
