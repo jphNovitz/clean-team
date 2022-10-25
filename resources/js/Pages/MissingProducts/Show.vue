@@ -8,7 +8,7 @@ import ProductLine from '@/Pages/MissingProducts/Partials/ProductLine.vue'
 import ProductManager from '@/Pages/MissingProducts/Partials/ProductManager.vue'
 import { Inertia } from '@inertiajs/inertia';
 
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage, Link } from '@inertiajs/inertia-vue3'
 import { trans } from "matice";
 import Button from '@/Components/Button.vue';
 import Header2 from '@/Components/Titles/Header2.vue'
@@ -48,14 +48,23 @@ function toggleManger() {
     else showManager = false
 }
 
-watch(showAddModal, async () => {
-    if (showAddModal)
+function loadModal() {
         axios
             .get(route('products_not_in_journal'))
             .then(response => {
                 state.available = response.data
             })
-})
+}
+
+// watch(showAddModal, async () => {
+//     if (showAddModal)
+//     alert()
+//         axios
+//             .get(route('products_not_in_journal'))
+//             .then(response => {
+//                 state.available = response.data
+//             })
+// })
 
 function addProductToJournal(id) {
     // axios
@@ -93,8 +102,13 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                     :class="{'w-max h-max flex-col-inverse' : showSecondaryMenu}">
                     <button class="inline-block" @click.prevent="showManager = !showManager">
                         <Cog6ToothIcon class="w-4 inline" />
-                        Product Manger
+                        Product_Manger
                     </button>
+                    <Link class="inline-block" href="/missing/report" >
+                        <Cog6ToothIcon class="w-4 inline" />
+                        Report
+                    </Link>
+
                     <button class="inline-block" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
                         <EllipsisVerticalIcon class="w-5 " />
                     </button>
@@ -137,7 +151,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                                 <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">Afficher
                                     Linge</span>
                             </label>
-                            <Button class="rounded-full" @click.prevent="showAddModal = !showAddModal">
+                            <Button class="rounded-full" @click.prevent="showAddModal = !showAddModal, loadModal()">
                                 <PlusIcon class="w-4" />
                             </Button>
                         </div>
