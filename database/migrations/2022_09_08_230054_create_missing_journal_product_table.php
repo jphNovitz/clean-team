@@ -13,18 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('missing_products_products', function (Blueprint $table) {
+        Schema::create('missing_products_product', function (Blueprint $table) {
             
-            $table->bigInteger('product_id')->unsigned();
-            $table->bigInteger('missing_products_id')->unsigned();
+            // $table->foreignId('product_id')->index();
+            // $table->foreignId('missing_products_id')->index();
 
-            $table->foreign('product_id')
-                ->references('id')->on('products')
-                ->onDelete('cascade');
+            // $table->bigInteger('product_id')->unsigned();
+            // $table->bigInteger('missing_products_id')->unsigned();
 
-            $table->foreign('missing_products_id')
-                ->references('id')->on('missing_products')
-                ->onDelete('cascade');
+            // $table->foreign('product_id')
+            //     ->references('id')->on('products')
+            //     ->onDelete('cascade');
+
+            // $table->foreign('missing_products_id')
+            //     ->references('id')->on('missing_products')
+            //     ->onDelete('cascade');
             
             $table->timestamps();
         });

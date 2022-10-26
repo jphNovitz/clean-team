@@ -19,10 +19,10 @@ return new class extends Migration
             $table->boolean('reported')->default(false);
             $table->integer('quantity')->default(0);
 
-            $table->bigInteger('product_id')->unsigned();
-            $table->foreign('product_id')
-                ->references('id')->on('products')
-                ->onDelete('cascade');
+            // $table->bigInteger('product_id')->unsigned();
+            // $table->foreign('product_id')
+            //     ->references('id')->on('products')
+            //     ->onDelete('cascade');
 
             $table->bigInteger('team_id')->unsigned();
             $table->foreign('team_id')
@@ -31,7 +31,7 @@ return new class extends Migration
 
                 $table->foreignId('missing_archives_id')->nullable()->index();
             
-
+                $table->foreignId('product_id')->nullable()->index();
             /* $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('product_id')->unsigned(); */
 

@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder
            }
            $journal->save();
             $journal->users()->attach($users->find($faker->numberBetween(1, 10)));
-            //$journal->products()->attach($products->find($faker->numberBetween(1, 10)));
-                
+            // $journal->product()->attach($products->find($faker->numberBetween(1, 10)));
+            
 
         }
         // \App\Models\User::factory()->create([

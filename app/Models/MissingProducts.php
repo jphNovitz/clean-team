@@ -17,8 +17,11 @@ class MissingProducts extends Model
     }
 
     public function product(){
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
+    // public function product(){
+    //     return $this->hasOne(Product::class);
+    // }
 
     public function archive(){
         return $this->BelongsTo(MissingArchives::class, 'archive_id');

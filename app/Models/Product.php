@@ -26,8 +26,12 @@ class Product extends Model
 
     
     public function missing_products(){
-        return $this->HasMany(MissingProducts::class);
+        return $this->hasMany(MissingProducts::class);
     }
+
+    // public function missing_products(){
+    //     return $this->HasMany(MissingProducts::class);
+    // }
     
     // To be removed
     public function journals(){
