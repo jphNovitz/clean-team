@@ -15,6 +15,7 @@ import { BeakerIcon } from '@heroicons/vue/20/solid'
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
 import JetLabel from '@/Components/Label.vue';
 import JetInput from '@/Components/Input.vue';
+import JetCheckbox from '@/Components/Checkbox.vue';
 import JetActionMessage from '@/Components/ActionMessage.vue';
 
 
@@ -26,7 +27,7 @@ const props = defineProps({
 // moment = moment.locale('fr')
 const form = useForm({
     id: props.line.id,
-    active: props.line.active,
+    active: !!props.line.active,
     reported: props.line.reported,
     quantity: String(props.line.quantity),
     product_id: props.line.product_id,
@@ -68,7 +69,7 @@ watch(alert, async () => {
                 type="number" 
                 class="w-3/4 " 
                 v-model="form.quantity" />
-                <input v-else type="checkbox" v-model.checkbox="form.reported">
+                <JetCheckbox v-else type="checkbox"  :checked="form.active" v-model.checkbox="form.active"  />
             </div>
             <!-- <div class="col-span-1">
                 ({{product(form.product_id).type_id}})
