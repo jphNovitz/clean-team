@@ -55,6 +55,11 @@ function loadModal() {
                 state.available = response.data
             })
 }
+function reportAndRedirect(){
+    setTimeout(function(){
+        Inertia.visit(route('missing_products'));
+    }, 2000);
+}
 
 // watch(showAddModal, async () => {
 //     if (showAddModal)
@@ -104,11 +109,10 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                         <Cog6ToothIcon class="w-4 inline" />
                         Product_Manger
                     </button>
-                    <Link class="inline-block" href="/missing/report" >
-                        <Cog6ToothIcon class="w-4 inline" />
-                        Report
-                    </Link>
 
+                    <a  href="missing/report" class="inline-block" @click="reportAndRedirect">
+                        Report
+                    </a>
                     <button class="inline-block" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
                         <EllipsisVerticalIcon class="w-5 " />
                     </button>

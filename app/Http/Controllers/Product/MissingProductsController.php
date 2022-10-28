@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Actions\Products\CreatePdf;
+use App\Actions\Products\CreateReport;
 use App\Actions\Products\UpdateLine;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\ShareProductsData;
+use App\Models\MissingArchives;
 use App\Models\MissingProducts;
+use App\Models\MissingProductsArchive;
 use App\Models\Product;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Throwable;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use function Termwind\render;
 
 class MissingProductsController extends Controller
 {
@@ -18,9 +27,11 @@ class MissingProductsController extends Controller
 
     public function index()
     {
-
+   
         return Inertia::render('MissingProducts/Show', [
-            'journal' => MissingProducts::where('team_id', auth()->user()->currentTeam->id)->get(),
+            'journal' => MissingProducts::with('product')
+                ->where('team_id', auth()->user()->currentTeam->id)
+                ->where('reported', false)->get(),
         ]);
     }
 
@@ -43,6 +54,7 @@ class MissingProductsController extends Controller
         $existing_lines_current_team = DB::table('missing_products')
             ->select('missing_products.product_id')
             ->where('team_id', '=', auth()->user()->currentTeam->id)
+            ->where('reported', "=", 0)
             ->distinct()
             ->get()
             ->toArray();
@@ -50,7 +62,6 @@ class MissingProductsController extends Controller
         $filtered = array_map(function ($v) {
             return $v->product_id;
         }, $existing_lines_current_team);
-
 
 
         $available_products = DB::table('products')
@@ -85,47 +96,39 @@ class MissingProductsController extends Controller
 
     }
 
-    public function report()
-    { 
-        // TODO create a table to store ids name and teamid => possiblity of recreate report in the future
+    public function report(CreateReport $reporter)
+    {
 
-        // Get the lists of ids
-        $rowIds = DB::table('missing_products')
-        ->select('missing_products.id as id')
-        ->where('team_id', '=', auth()->user()->currentTeam->id)
-        ->where('reported', "=", "false")
-        ->get();
-        foreach($rowIds as $item){
-            $ids[] = $item->id;
-        }
-
-        // The object to be stored
-        $give_me_a_name = [
-            'name' => date('m-d-Y_hia'),
-            'team_id' => auth()->user()->currentTeam->id,
-            'ids' => json_encode($rowIds)
-        ];
-
-        dd($give_me_a_name);
-        dd($ids);
-
+        if(!$report = $reporter->create()) return redirect()->route('missing_products');
         
-        $journal = DB::table('missing_products')
+        return Pdf::loadView('pdf.report', $report)
+            ->download('linge_manquant_'.date('m-d-Y_hia').'.pdf', [
+                'location' => route('missing_products')
+            ] );
+       
+       /* $journal = DB::table('missing_products')
             ->leftJoin('products', 'products.id', '=', 'missing_products.product_id')
-            ->select('missing_products.id as id', 'missing_products.active as active', 'missing_products.quantity as quantity', 
-                       'missing_products.reported as reported', 'missing_products.team_id as team_id', 'missing_products.created_at as created_at', 'missing_products.updated_at as updated_at', 
-                       'products.name as name', 'products.type_id as type_id', 'products.description as description')
+            ->select(
+                'missing_products.id as id',
+                'missing_products.active as active',
+                'missing_products.quantity as quantity',
+                'missing_products.reported as reported',
+                'missing_products.team_id as team_id',
+                'missing_products.created_at as created_at',
+                'missing_products.updated_at as updated_at',
+                'products.name as name',
+                'products.type_id as type_id',
+                'products.description as description'
+            )
             ->where('team_id', '=', auth()->user()->currentTeam->id)
             ->where('reported', "=", "false")
             ->get();
-            
-            foreach ($journal as $line){
-                if($line->type_id === 1)
-                    $grouped[1][] = $line; 
-                else $grouped[2][] = $line;
-            }
-            asort($grouped);
 
-        die('ok');
+        foreach ($journal as $line) {
+            if ($line->type_id === 1)
+                $grouped[1][] = $line;
+            else $grouped[2][] = $line;
+        }
+        asort($grouped); */
     }
 }

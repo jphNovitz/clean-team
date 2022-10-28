@@ -28,6 +28,11 @@ return [
     "saved" => "enregistré",
     "Added" => "Ajouté",
     "added" => "ajouté",
-    "" => "",
+    "Quantity" => "Quantité", // PRODUCTS
+    "quantity" => "quantité", 
+    'Create_product' => 'Créer un produit',
+    'create_product' => 'créer un produit',
+    'Add_product' => 'Ajouter un produit',
+    'add_product' => 'ajouter un produit',
         
 ];
