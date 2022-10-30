@@ -44,6 +44,7 @@ Route::middleware([
     Route::post('/create_product', [ProductController::class, 'create'])->name('create_product');
     Route::put('/update_product', [ProductController::class, 'update'])->middleware('share_products')->name('update_product');
     Route::get('/missing/report', [MissingProductsController::class, 'report'])->middleware('share_products')->name('missing_report');
+    Route::get('/missing/archives', [MissingProductsController::class, 'archivesList'])->name('missing_archives');
     Route::get('/design', function () {;
     })->name('design');
 });

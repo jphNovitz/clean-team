@@ -131,4 +131,12 @@ class MissingProductsController extends Controller
         }
         asort($grouped); */
     }
+
+    public function archivesList(){
+// dd(MissingArchives::where('team_id', '=', auth()->user()->currentTeam->id)->orderBy('created_at', 'desc')->get());
+        return Inertia::render('MissingProducts/Archive', [
+            'archive' => MissingArchives::where('team_id', '=', auth()->user()->currentTeam->id)
+            ->orderBy('created_at', 'desc')->get()
+        ]);
+    }
 }
