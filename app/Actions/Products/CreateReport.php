@@ -27,7 +27,7 @@ class CreateReport
             /** STORE THE ARCHIVE */
 
             $archive =  new MissingArchives();
-            $archive->name = date('m-d-Y_hia');
+            $archive->name = date('Y-m-d H:i:s');
             $archive->team_id = auth()->user()->currentTeam->id;
             $archive->save();
             
