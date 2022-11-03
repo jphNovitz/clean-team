@@ -24,6 +24,11 @@ moment.locale('fr')
 const props = defineProps([
     'item'
 ])
+
+function archiveToPdf(id) {
+    console.log(id)
+    Inertia.visit(route('missing_archive_pdf', { 'id': id }));
+}
 </script>
 
 <template>
@@ -42,12 +47,15 @@ const props = defineProps([
             </Button>
         </div>
         <div class="p-1">
-            <SecondaryButton class="w-full justify-center">
+            <a v-bind:href="'/missing/archive/pdf/' + item.id">
+            <SecondaryButton class="w-full justify-center" >
                 <FolderArrowDownIcon class="w-5 mr-2" />
                 <span class="hidden md:inline text-xs">
                     {{trans('btn.Download')}}
                 </span>
             </SecondaryButton>
+            </a>
+            
         </div>
 
     </div>

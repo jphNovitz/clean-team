@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Actions\Products\CreatePdf;
 use App\Actions\Products\CreateReport;
+use App\Actions\Products\FindReport;
 use App\Actions\Products\UpdateLine;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\ShareProductsData;
@@ -130,6 +131,17 @@ class MissingProductsController extends Controller
             else $grouped[2][] = $line;
         }
         asort($grouped); */
+    }
+
+    public function archivePdf(int $id = null, FindReport $finder){
+        
+        if (empty($id)) return redirect()->back();
+
+        $archive = $finder->find($id);
+        return Pdf::loadView('pdf.report', $archive)
+        ->download('linge_manquant_'.date('m-d-Y_hia').'.pdf');
+
+
     }
 
     public function archivesList(){

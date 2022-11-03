@@ -110,7 +110,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                         Product_Manger
                     </button>
 
-                    <a  href="missing/report" class="inline-block" @click="reportAndRedirect">
+                    <a  href="missing/archives" class="inline-block">
                         Report
                     </a>
                     <button class="inline-block" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
