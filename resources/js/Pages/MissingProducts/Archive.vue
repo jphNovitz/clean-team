@@ -4,6 +4,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import JetActionSection from '@/Components/ActionSection.vue';
 import JetModal from '@/Components/Modal.vue';
 import ArchiveItem from '@/Pages/MissingProducts/Partials//Archive/ArchiveItem.vue'
+import AvailableReport from '@/Pages/MissingProducts/Partials//Archive/ReportAvailable.vue'
 import { Inertia } from '@inertiajs/inertia';
 
 import { usePage, Link } from '@inertiajs/inertia-vue3'
@@ -70,6 +71,9 @@ var state = reactive({
                     </template>
 
                     <template #content>
+
+<AvailableReport />
+
                         <div class="grid grid-cols-2 md:grid-cols-2  gap-5 justify-start my-4">
                            
                             <ArchiveItem v-for="item in archive"  :item="item" />
