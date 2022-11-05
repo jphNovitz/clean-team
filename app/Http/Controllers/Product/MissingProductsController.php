@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Throwable;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 use function Termwind\render;
 
@@ -28,7 +29,7 @@ class MissingProductsController extends Controller
 
     public function index()
     {
-   
+
         return Inertia::render('MissingProducts/Show', [
             'journal' => MissingProducts::with('product')
                 ->where('team_id', auth()->user()->currentTeam->id)
@@ -97,17 +98,17 @@ class MissingProductsController extends Controller
 
     }
 
-    public function report(CreateReport $reporter)
+    public function report(CreateReport $createReport)
     {
 
-        if(!$report = $reporter->create()) return redirect()->route('missing_products');
-        
+        if (!$report = $createReport()) return redirect()->route('missing_products');
+
         return Pdf::loadView('pdf.report', $report)
-            ->download('linge_manquant_'.date('m-d-Y_hia').'.pdf', [
+            ->download('linge_manquant_' . date('m-d-Y_hia') . '.pdf', [
                 'location' => route('missing_products')
-            ] );
-       
-       /* $journal = DB::table('missing_products')
+            ]);
+
+        /* $journal = DB::table('missing_products')
             ->leftJoin('products', 'products.id', '=', 'missing_products.product_id')
             ->select(
                 'missing_products.id as id',
@@ -133,22 +134,30 @@ class MissingProductsController extends Controller
         asort($grouped); */
     }
 
-    public function archivePdf(int $id = null, FindReport $finder){
-        
+    public function archivePdf(int $id = null, FindReport $findReport)
+    {
+
         if (empty($id)) return redirect()->back();
 
-        $archive = $finder->find($id);
+        $archive = $findReport($id);
         return Pdf::loadView('pdf.report', $archive)
-        ->download('linge_manquant_'.date('m-d-Y_hia').'.pdf');
-
-
+            ->download('linge_manquant_' . date('m-d-Y_hia') . '.pdf');
     }
 
-    public function archivesList(){
-// dd(MissingArchives::where('team_id', '=', auth()->user()->currentTeam->id)->orderBy('created_at', 'desc')->get());
+    public function archivesList()
+    {
+        // dd(MissingArchives::where('team_id', '=', auth()->user()->currentTeam->id)->orderBy('created_at', 'desc')->get());
         return Inertia::render('MissingProducts/Archive', [
             'archive' => MissingArchives::where('team_id', '=', auth()->user()->currentTeam->id)
-            ->orderBy('created_at', 'desc')->get()
+                ->orderBy('created_at', 'desc')->get()
         ]);
+    }
+
+    public function availableReport()
+    {
+        return response()->json(DB::table('missing_products')
+        ->where('team_id', auth()->user()->currentTeam->id)
+        ->where('reported', '0')
+    ->count());
     }
 }

@@ -10,7 +10,7 @@ use App\Models\Type;
 class FindReport
 {
 
-    public function find(int $id)
+    public function __invoke(int $id)
     {
         // return MissingArchives::where('id', '=', $id)->first();
 

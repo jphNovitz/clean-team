@@ -39,12 +39,14 @@ function archiveToPdf(id) {
             <!-- {{item.name}} -->
         </div>
         <div class="p-1">
+            <Link :href="route('email_report_archive', {'id': item.id})">
             <Button class="w-full justify-center">
                 <PaperAirplaneIcon class="w-5 mr-2 " />
                 <span class="hidden md:inline text-xs">
                     {{trans('btn.send')}}
                 </span>
             </Button>
+        </Link>
         </div>
         <div class="p-1">
             <a v-bind:href="'/missing/archive/pdf/' + item.id">

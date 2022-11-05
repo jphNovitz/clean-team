@@ -41,12 +41,14 @@ onMounted(() => {
             <p>{{ trans('report.Available_message')}} ({{state.available_lines}} {{ trans('report.products')}})</p>
             <div class="w-1/2 grid grid-cols-2">
                 <div class="p-1">
+                    <a :href="route('email_report')" >
                     <Button class="w-full justify-center">
                         <PaperAirplaneIcon class="w-5 mr-2 " />
                         <span class="hidden md:inline text-xs">
                             {{trans('btn.send')}}
                         </span>
                     </Button>
+                </a>
                 </div>
                 <div class="p-1">
                     <a href="/missing/report" >
