@@ -10,7 +10,7 @@ use App\Models\Type;
 class CreateReport
 {
 
-    public function create()
+    public function __invoke()
     {
 
         try {
@@ -32,13 +32,12 @@ class CreateReport
             $archive->save();
             
             foreach ($lines as $line) {
-                // dd($line);
                 $line->reported = true;
                 $archive->lines()->save($line);
             }
            
             $archive->save();
-            // dd($archive->lines);
+
             return [
                 'archive' => $archive->lines,
                 'members' => auth()->user()->currentTeam->allUsers(),
