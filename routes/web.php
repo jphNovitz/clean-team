@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\Email\EmailController;
 use App\Http\Controllers\Product\MissingProductsController;
 use App\Http\Controllers\Product\ProductController;
 use Illuminate\Foundation\Application;
@@ -47,6 +48,9 @@ Route::middleware([
     Route::get('/missing/report/available', [MissingProductsController::class, 'availableReport'])->name('missing_report_available');
     Route::get('/missing/archives', [MissingProductsController::class, 'archivesList'])->name('missing_archives');
     Route::get('/missing/archive/pdf/{id}', [MissingProductsController::class, 'archivePdf'])->name('missing_archive_pdf');
+
+    Route::get('/missing/send/report',  [EmailController::class, 'sendReport'])->name('email_report');
+    Route::get('/missing/send/archive/{id}',  [EmailController::class, 'sendArchive'])->name('email_report_archive');
     Route::get('/design', function () {;
     })->name('design');
 });
