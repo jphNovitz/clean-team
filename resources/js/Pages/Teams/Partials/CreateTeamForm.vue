@@ -31,7 +31,7 @@ const createTeam = () => {
 
         <template #form>
             <div class="col-span-6">
-                <JetLabel value="Team Owner" />
+                <JetLabel value="team.Team_Owner" />
 
                 <div class="flex items-center mt-2">
                     <img class="object-cover w-12 h-12 rounded-full" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
