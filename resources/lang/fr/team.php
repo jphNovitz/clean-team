@@ -30,6 +30,8 @@ return [
     "Delete_team_confirm_sure" => "Etes-vous certain de vouloir  supprimer cette équipe ainsi que ses donnée.  Veillez peut-être à télécharger les données au préalable",
     "Create_Team" => "Créer une équipe",
     "Team_Settings" => "Parametrage de l'Equipe",
-    "" => "",
+    "Contact_email" => "Email de Contact",// CONTACT
+    "Contact_email_description" => "Email de la personne qui recevra les rapport.",
+    "Team_Contact" => "Personne de contact",
     "" => "",
 ];

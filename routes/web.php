@@ -3,6 +3,7 @@
 use App\Http\Controllers\Product\Email\EmailController;
 use App\Http\Controllers\Product\MissingProductsController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Team\TeamController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,6 +39,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     
+    //TEAMS
+    Route::put('/teams/{team}', [TeamController::class, 'updateContactEmail'])->name('teams.update_contact_email');
+
     Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
     Route::get('missing/available_products', [MissingProductsController::class, 'productsNotInJournal'])->name('products_not_in_journal');
     Route::put('missing/add_product_journal', [MissingProductsController::class, 'addProductInJournal'])->name('add_product_in_journal');

@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm.vue';
 import JetSectionBorder from '@/Components/SectionBorder.vue';
 import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager.vue';
+import UpdateTeamContactEmailForm from '@/Pages/Teams/Partials/UpdateTeamContactEmailForm.vue';
 import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm.vue';
 import { trans } from "matice";
 
@@ -24,6 +25,7 @@ defineProps({
         <div>
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <UpdateTeamNameForm :team="team" :permissions="permissions" />
+                <UpdateTeamContactEmailForm :team="team" :permissions="permissions" />
 
                 <TeamMemberManager
                     class="mt-10 sm:mt-0"
