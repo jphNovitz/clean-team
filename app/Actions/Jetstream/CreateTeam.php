@@ -18,17 +18,19 @@ class CreateTeam implements CreatesTeams
      * @return mixed
      */
     public function create($user, array $input)
-    {
+    { 
         Gate::forUser($user)->authorize('create', Jetstream::newTeamModel());
 
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
+            'contact_email' => ['required', 'string', 'max:255'],
         ])->validateWithBag('createTeam');
 
         AddingTeam::dispatch($user);
 
         $user->switchTeam($team = $user->ownedTeams()->create([
             'name' => $input['name'],
+            'contact_email' => $input['contact_email'],
             'personal_team' => false,
         ]));
 

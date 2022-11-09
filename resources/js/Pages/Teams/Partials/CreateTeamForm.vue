@@ -9,6 +9,7 @@ import { trans } from "matice";
 
 const form = useForm({
     name: '',
+    contact_email: ''
 });
 
 const createTeam = () => {
@@ -50,6 +51,17 @@ const createTeam = () => {
                 <JetInput
                     id="name"
                     v-model="form.name"
+                    type="text"
+                    class="block w-full mt-1"
+                    autofocus
+                />
+                <JetInputError :message="form.errors.name" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <JetLabel for="contact_email" value="team.Contact_email" />
+                <JetInput
+                    id="contact_email"
+                    v-model="form.contact_email"
                     type="text"
                     class="block w-full mt-1"
                     autofocus
