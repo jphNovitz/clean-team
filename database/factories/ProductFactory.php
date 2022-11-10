@@ -15,12 +15,13 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition($name = null, $type_id = 1)
     {
         return [
-            'name' => $this->faker->word(2),
+            // 'name' => $this->faker->word(2),
+             'name' => $name,
             'description' => $this->faker->sentence(),
-            'type_id' => $this->faker->numberBetween(1, 2),
+            'type_id' => $type_id,
         ];
-    }
+    } 
 }
