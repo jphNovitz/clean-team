@@ -35,6 +35,7 @@ function typeID(productID) {
 }
 
 function showComponent(productID) {
+    // if(usePage().props.value.journal.length === 1) return true
     switch (state.products.filter(product => product.id == productID)[0].type_id) {
         case 1:
             return showLinens.value
