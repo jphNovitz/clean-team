@@ -12,9 +12,7 @@ import { usePage, Link } from '@inertiajs/inertia-vue3'
 import { trans } from "matice";
 import Button from '@/Components/Button.vue';
 import Header2 from '@/Components/Titles/Header2.vue'
-import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
-import { Cog6ToothIcon } from '@heroicons/vue/20/solid'
-import { PlusIcon } from '@heroicons/vue/20/solid'
+import { EllipsisVerticalIcon, Cog6ToothIcon, PlusIcon, PencilSquareIcon } from '@heroicons/vue/20/solid'
 import Modal from '@/Components/Modal.vue';
 
 // const journal = usePage().props.value.journal
@@ -62,24 +60,7 @@ function reportAndRedirect(){
     }, 2000);
 }
 
-// watch(showAddModal, async () => {
-//     if (showAddModal)
-//     alert()
-//         axios
-//             .get(route('products_not_in_journal'))
-//             .then(response => {
-//                 state.available = response.data
-//             })
-// })
-
 function addProductToJournal(id) {
-    // axios
-    //     .put(route('add_product_in_journal'), {'id': id})
-    //     .then(response => {
-    //         if(response.status === 200){
-    //            Inertia.reload({ only: ['products']})
-    //         }
-    //         })
     Inertia.put(route('add_product_in_journal'), { 'id': id }, {
         preserveScroll: true,
         resetOnSuccess: false,
@@ -102,19 +83,20 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
         <template #header>
             <div style=" position: relative">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Products
+                    {{trans('app.Products')}}
                 </h2>
-                <div class="absolute right-5 top-0 text-gray-800 flex w-7 h-7 overflow-hidden justify-end md:w-max md:h-auto "
-                    :class="{'w-max h-max flex-col-inverse' : showSecondaryMenu}">
-                    <button class="inline-block" @click.prevent="showManager = !showManager">
+                <div class="absolute right-5 top-0 text-gray-800 flex w-7 h-7 overflow-hidden justify-end  md:w-max md:h-auto  md:flex-row items-start "
+                    :class="{'w-max h-max flex-col-reverse bg-slate-50 border border-gray-200 rounded-lg' : showSecondaryMenu}">
+                    <button class="inline-block w-full md:w-auto px-3 py-3 md:py-0" @click.prevent="showManager = !showManager">
                         <Cog6ToothIcon class="w-4 inline" />
-                        Product_Manger
+                        {{trans('btn.Product_Manager')}}
                     </button>
 
-                    <a  href="missing/archives" class="inline-block">
-                        Report
+                    <a  href="missing/archives" class="inline-block  w-full md:w-auto px-3 py-3 md:py-0">
+                        <PencilSquareIcon class="w-4 inline" />
+                        {{trans('btn.Report')}}
                     </a>
-                    <button class="inline-block" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
+                    <button class="inline-block  self-end md:hidden px-3 py-1 md:py-0" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
                         <EllipsisVerticalIcon class="w-5 " />
                     </button>
                 </div>
@@ -128,36 +110,38 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <JetActionSection class="mt-10 sm:mt-0">
                     <template #title>
-                        Missing Products <div class="flex justify-center"> 
+                        {{trans('app.Missing_Products')}} <div class="flex justify-center"> 
                         </div>
                     </template>
 
                     <template #description>
-                        Signale les produits manquants
+                        {{trans('app.Missing_products_description')}}
                     </template>
 
                     <template #content>
-                        <div class="flex justify-start my-4">
+                        <div class="w-full flex justify-between my-4">
                             <label for="default-consumable" class="inline-flex relative items-center cursor-pointer">
                                 <input type="checkbox" value="" id="default-consumable" v-model="showConsumable"
                                     class="sr-only peer">
                                 <div
-                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-indigo-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-indigo-500">
                                 </div>
-                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">Afficher
-                                    Produits</span>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">
+                                    {{trans('btn.Display_Products')}}
+                                </span>
                             </label>
                             <label for="default-linens" class="inline-flex relative items-center cursor-pointer">
                                 <input type="checkbox" value="" id="default-linens" v-model="showLinens"
                                     class="sr-only peer">
                                 <div
-                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-indigo-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-indigo-500">
                                 </div>
-                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">Afficher
-                                    Linge</span>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">
+                                    {{trans('btn.Display_Linens')}}
+                                </span>
                             </label>
                             <Button class="rounded-full" @click.prevent="showAddModal = !showAddModal, loadModal()">
-                                <PlusIcon class="w-4" />
+                                <PlusIcon class="w-4 md:hidden" /> <span class="hidden md:inline-block text-xs">+1 produit</span>
                             </Button>
                         </div>
                         <div

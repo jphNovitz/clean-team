@@ -34,5 +34,9 @@ return [
     'create_product' => 'créer un produit',
     'Add_product' => 'Ajouter un produit',
     'add_product' => 'ajouter un produit',
+    "Missing_Products" => "Produits manquants",
+    "Missing_products_description" => "Signale les produits et le linge manquant",
+    "Products" => "Produits"
+
         
 ];

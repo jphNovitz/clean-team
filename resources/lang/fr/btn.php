@@ -30,5 +30,9 @@ return [
     'Delete_Account' => 'Supprimer le Compte',
     "Add" => "Ajouter",
     "Create" => "Créer",
+    "Product_Manager" => "Paramètres",
+    "Report" => "Rapport",
+    "Display_Products" => "Afficher les Produits",
+    "Display_Linens" => "Afficher le linge",
     ]
 ;
