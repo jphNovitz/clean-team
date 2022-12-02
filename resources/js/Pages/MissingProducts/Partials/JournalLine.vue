@@ -45,49 +45,48 @@ function product(id) {
 }
 
 watch(alert, async () => {
-    if (alert.success) setTimeout(function() { alert.message = '', alert.success = false }, 3000);
+    if (alert.success) setTimeout(function () { alert.message = '', alert.success = false }, 3000);
 })
 </script>
 
 <template>
-   
-    <div class="w-full py-2 px-2 flex items-center  md:py-1  border-t border-t-indigo-50  border-b border-b-indigo-50 ">
-        
-        <form @submit.prevent="form.post(route('missing_products_test'), {
-          preserveScroll: true,
-          onSuccess: () => alert.success = true,
-        })" class="w-full items-center grid grid-cols-2 md:grid-cols-12 gap-6">
 
-            <div class="col-span-2 md:col-span-5  items-start text-xl md:text-lg flex flex-col  ">
-                <!-- <div class="md:hidden text-sm text-gray-700 "> {{trans('auth.Name')}}</div> -->
-                <JetLabel class="md:hidden"> {{trans('auth.Name')}} </JetLabel>
-                 {{product(form.product_id).name}} 
+    <!-- <div class="w-full py-2 px-2 flex items-center  md:py-1  border-t border-t-indigo-50  border-b border-b-indigo-50 "> -->
+
+        <!-- <form @submit.prevent="form.post(route('missing_products_test'), {
+            preserveScroll: true,
+            onSuccess: () => alert.success = true,
+        })" class="w-full"> -->
+
+            <div class="col-span-3 px-2 py-3 md:table-cell md:w-6/12 md:px-5 md:py-3">
+                <JetLabel class="md:hidden mb-2"> {{ trans('auth.Name') }} </JetLabel>
+                {{ product(form.product_id).name }}
             </div>
-            <div class="col-span-1 md:col-span-2 ">
-                <JetLabel class="md:hidden">{{trans('app.Quantity')}}</JetLabel>     
-                <JetInput v-if="product(form.product_id).type_id == 1"  
-                type="number" 
-                class="w-3/4 " 
-                v-model="form.quantity" />
-                <JetCheckbox v-else type="checkbox"  :checked="form.active" v-model.checkbox="form.active"  />
+        
+            <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-0 md:text-center">
+                <JetLabel class="md:hidden mb-2">{{ trans('app.Quantity') }}</JetLabel>
+                <JetInput v-if="product(form.product_id).type_id == 1" type="number" class="w-16 md:w-12 md:text-sm md:p-0  rounded-md border-0  outline outline-offset-2 outline-1 outline-slate-00"
+                    v-model="form.quantity" />
+                <JetCheckbox v-else type="checkbox" :checked="form.active" v-model.checkbox="form.active" />
             </div>
             <!-- <div class="col-span-1">
                 ({{product(form.product_id).type_id}})
             </div> -->
-            <div class="col-span-1 md:col-span-1">
-                <Button type="submit" :disabled="form.processing"> <ArrowPathIcon class="w-4" /> </Button>
+            <div class="col-span-1 flex items-end justify-center px-2 py-3 md:table-cell md:w-1/12 md:px-0 md:text-center">
+                <Button type="submit" :disabled="form.processing" class="w-16 h-12 flex items-center justify-center">
+                    <ArrowPathIcon class="w-6" />
+                </Button>
             </div>
             <!-- <div class="hidden 2xl:grid md:col-span-2">
                 {{ moment(props.line.created_at).format("l") }}
             </div> -->
-            <div class="hidden md:grid md:col-span-2">
+            <div class="hidden col-span-1 px-2 py-3 md:table-cell md:w-2/12 md:px-5 md:py-3 md:text-sm">
                 {{ moment(props.line.updated_at).format("l") }}
             </div>
-            <div class="col-span-2">
-                <JetActionMessage :on="alert.success"> {{trans('app.Saved')}}</JetActionMessage>
+            <div class="col-span-1 px-2 py-3 md:table-cell md:w-2/12 md:px-5 md:py-3">
+                <JetActionMessage :on="alert.success"> {{ trans('app.Saved') }}</JetActionMessage>
             </div>
-        </form>
-
-    </div>
+        <!-- </form> -->
+    <!-- </div> -->
 
 </template>

@@ -23,7 +23,7 @@ const showOddColor = ref(false)
 const showManager = ref(false)
 const showSecondaryMenu = ref(false)
 var showAddModal = ref(false)
-var state = reactive({ 
+var state = reactive({
     available: [],
     products: usePage().props.value.initialProducts
 })
@@ -48,14 +48,14 @@ function toggleManger() {
 }
 
 function loadModal() {
-        axios
-            .get(route('products_not_in_journal'))
-            .then(response => {
-                state.available = response.data
-            })
+    axios
+        .get(route('products_not_in_journal'))
+        .then(response => {
+            state.available = response.data
+        })
 }
-function reportAndRedirect(){
-    setTimeout(function(){
+function reportAndRedirect() {
+    setTimeout(function () {
         Inertia.visit(route('missing_products'));
     }, 2000);
 }
@@ -83,20 +83,22 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
         <template #header>
             <div style=" position: relative">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{trans('app.Products')}}
+                    {{ trans('app.Products') }}
                 </h2>
                 <div class="absolute right-5 top-0 text-gray-800 flex w-7 h-7 overflow-hidden justify-end  md:w-max md:h-auto  md:flex-row items-start "
-                    :class="{'w-max h-max flex-col-reverse bg-slate-50 border border-gray-200 rounded-lg' : showSecondaryMenu}">
-                    <button class="inline-block w-full md:w-auto px-3 py-3 md:py-0" @click.prevent="showManager = !showManager">
+                    :class="{ 'w-max h-max flex-col-reverse bg-slate-50 border border-gray-200 rounded-lg': showSecondaryMenu }">
+                    <button class="inline-block w-full md:w-auto px-3 py-3 md:py-0"
+                        @click.prevent="showManager = !showManager">
                         <Cog6ToothIcon class="w-4 inline" />
-                        {{trans('btn.Product_Manager')}}
+                        {{ trans('btn.Product_Manager') }}
                     </button>
 
-                    <a  href="missing/archives" class="inline-block  w-full md:w-auto px-3 py-3 md:py-0">
+                    <a href="missing/archives" class="inline-block  w-full md:w-auto px-3 py-3 md:py-0">
                         <PencilSquareIcon class="w-4 inline" />
-                        {{trans('btn.Report')}}
+                        {{ trans('btn.Report') }}
                     </a>
-                    <button class="inline-block  self-end md:hidden px-3 py-1 md:py-0" @click.prevent="showSecondaryMenu = !showSecondaryMenu">
+                    <button class="inline-block  self-end md:hidden px-3 py-1 md:py-0"
+                        @click.prevent="showSecondaryMenu = !showSecondaryMenu">
                         <EllipsisVerticalIcon class="w-5 " />
                     </button>
                 </div>
@@ -110,12 +112,12 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 <JetActionSection class="mt-10 sm:mt-0">
                     <template #title>
-                        {{trans('app.Missing_Products')}} <div class="flex justify-center"> 
+                        {{ trans('app.Missing_Products') }} <div class="flex justify-center">
                         </div>
                     </template>
 
                     <template #description>
-                        {{trans('app.Missing_products_description')}}
+                        {{ trans('app.Missing_products_description') }}
                     </template>
 
                     <template #content>
@@ -127,7 +129,7 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                                     class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-indigo-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-indigo-500">
                                 </div>
                                 <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">
-                                    {{trans('btn.Display_Products')}}
+                                    {{ trans('btn.Display_Products') }}
                                 </span>
                             </label>
                             <label for="default-linens" class="inline-flex relative items-center cursor-pointer">
@@ -137,26 +139,46 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                                     class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-indigo-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-indigo-500">
                                 </div>
                                 <span class="ml-3 text-sm font-medium text-gray-900 dark:text-indigo-600">
-                                    {{trans('btn.Display_Linens')}}
+                                    {{ trans('btn.Display_Linens') }}
                                 </span>
                             </label>
                             <Button class="rounded-full" @click.prevent="showAddModal = !showAddModal, loadModal()">
-                                <PlusIcon class="w-4 md:hidden" /> <span class="hidden md:inline-block text-xs">+1 produit</span>
+                                <PlusIcon class="w-4 md:hidden" /> <span class="hidden md:inline-block text-xs">+1
+                                    produit</span>
                             </Button>
                         </div>
                         <div
+                            class="w-full flex md:table md:w-full md:border-collapse rounded-md border-b shadow-xl overflow-hidden p-0 ">
+                            <div class="hidden md:table-header-group bg-indigo-200 text-indigo-900 ">
+                                <div class="md:table-row ">
+                                    <div class="table-cell w-5/12 md:px-5 md:py-3">{{ trans('auth.Name') }}</div>
+                                    <div class="table-cell w-1/12 md:px-5 md:py-3"> {{ trans('app.Qty') }} </div>
+                                    <div class="table-cell w-2/12 md:px-5 md:py-3"> &nbsp; &nbsp; </div>
+                                    <div class="table-cell w-2/12 md:px-5 md:py-3"> &nbsp; &nbsp; </div>
+                                    <div class="table-cell w-1/12 md:px-5 md:py-3"> &nbsp; &nbsp; </div>
+                                </div>
+                            </div>
+                            <div class="w-full flex flex-col md:table-row-group">
+                                <div v-for="line in $page.props.journal" :key="line.id"
+                                    class="grid grid-cols-3 gap-4 text-xl border-b border-b-slate-200 md:table-row transition-colors ease-in-out delay-150 duration-1000"
+                                    :class="{ 'odd:bg-indigo-50': showOddColor/*, 'border-l-4 border-green-custom rounded-l-md' : line.type_id === 1*/ }, {/*'border-l-4 border-red-custom rounded-l-md' : product.type_id === 2*/ }">
+                                    <JournalLine :line="line" v-if="showComponent(line.product_id)" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div
                             class="hidden w-full items-center md:grid md:grid-cols-12 gap-6 bg-indigo-200 text-indigo-900 py-2 px-2">
                             <div class="md:col-span-5">Nom </div>
                             <div class="md:col-span-2"> </div>
                             <div class="md:col-span-1"> </div>
-                            <!-- <div class="hidden 2xl:grid 2xl:col-span-2"> Création </div> -->
+                            
                             <div class="hidden md:grid md:col-span-2"> Modification </div>
-                        </div>
-                        <div v-for="line in $page.props.journal" :key="line.id"
+                        </div> -->
+                        <!-- <div v-for="line in $page.props.journal" :key="line.id"
                             class="flex items-center justify-between transition-colors ease-in-out delay-150 duration-1000"
-                            :class="{'odd:bg-indigo-50' : showOddColor}">
-                            <JournalLine :line="line" v-if="showComponent(line.product_id)" />
-                        </div>
+                            :class="{ 'odd:bg-indigo-50': showOddColor }">
+                            <JournalLine :line="line" v-if="showComponent(line.product_id)" /> -->
+                        <!-- </div> -->
                     </template>
 
                 </JetActionSection>
@@ -164,12 +186,12 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             </div>
 
         </div>
-         <!-- MODAL : list of products available to add - create journal line with -->
+        <!-- MODAL : list of products available to add - create journal line with -->
         <JetModal :show='showAddModal'>
             <div class="p-5">
                 <Header2 class="pb-5">Add_product</Header2>
                 <div v-if="state.available" class="grid grid-cols-3" v-for="product in state.available">
-                    <div class="col-span-2 p-3">{{product.name}} ({{product.id}})</div>
+                    <div class="col-span-2 p-3">{{ product.name }} ({{ product.id }})</div>
                     <div class="p-3"><Button
                             @click.prevent="addProductToJournal(product.id), showAddModal = !showAddModal">app.add</Button>
                     </div>
