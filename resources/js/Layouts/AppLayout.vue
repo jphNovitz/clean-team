@@ -155,7 +155,7 @@ const logout = () => {
                                         </span>
                                     </template>
 
-                                    <template #content>
+                                    <template #content>KKK
                                         <!-- Account Management -->
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             {{ trans('auth.Manage_account') }}

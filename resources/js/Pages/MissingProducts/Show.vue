@@ -15,8 +15,6 @@ import Header2 from '@/Components/Titles/Header2.vue'
 import { EllipsisVerticalIcon, Cog6ToothIcon, PlusIcon, PencilSquareIcon } from '@heroicons/vue/20/solid'
 import Modal from '@/Components/Modal.vue';
 
-// const journal = usePage().props.value.journal
-// const products = usePage().props.value.initialProducts
 const showConsumable = ref(false)
 const showLinens = ref(true)
 const showOddColor = ref(false)
@@ -161,24 +159,11 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
                             <div class="w-full flex flex-col md:table-row-group">
                                 <div v-for="line in $page.props.journal" :key="line.id"
                                     class="grid grid-cols-3 gap-4 text-xl border-b border-b-slate-200 md:table-row transition-colors ease-in-out delay-150 duration-1000"
-                                    :class="{ 'odd:bg-indigo-50': showOddColor/*, 'border-l-4 border-green-custom rounded-l-md' : line.type_id === 1*/ }, {/*'border-l-4 border-red-custom rounded-l-md' : product.type_id === 2*/ }">
+                                    :class="{ 'odd:bg-indigo-50': showOddColor, 'border-l-4 border-green-custom rounded-l-md' : line.product.type_id === 1 }, {'border-l-4 border-red-custom rounded-l-md' : line.product.type_id === 2 }">
                                     <JournalLine :line="line" v-if="showComponent(line.product_id)" />
                                 </div>
                             </div>
                         </div>
-                        <!-- <div
-                            class="hidden w-full items-center md:grid md:grid-cols-12 gap-6 bg-indigo-200 text-indigo-900 py-2 px-2">
-                            <div class="md:col-span-5">Nom </div>
-                            <div class="md:col-span-2"> </div>
-                            <div class="md:col-span-1"> </div>
-                            
-                            <div class="hidden md:grid md:col-span-2"> Modification </div>
-                        </div> -->
-                        <!-- <div v-for="line in $page.props.journal" :key="line.id"
-                            class="flex items-center justify-between transition-colors ease-in-out delay-150 duration-1000"
-                            :class="{ 'odd:bg-indigo-50': showOddColor }">
-                            <JournalLine :line="line" v-if="showComponent(line.product_id)" /> -->
-                        <!-- </div> -->
                     </template>
 
                 </JetActionSection>
