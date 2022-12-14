@@ -28,6 +28,7 @@ return [
     'forgot_password' => 'mot de passe oublié',
     'login' => 'connexion',
     'Login' => 'Connexion',
+    'Register' => "S'enregistrer",
     'logout' => 'déconnexion',
     'Logout' => 'Déconnexion',
     'manage_account' => 'gérer mon compte',

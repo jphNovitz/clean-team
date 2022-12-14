@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <h1 class="font-semibold text-xl text-gray-custom leading-tight">
+    <h2 class="w-full mb-6 font-semibold text-xl text-headline leading-tight ">
         <slot />
-    </h1>
+    </h2>
 </template>
