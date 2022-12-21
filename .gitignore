@@ -2,6 +2,7 @@
 ###> symfony/framework-bundle ###
 /node_modules
 /.env.example
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -17,5 +18,4 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-.env
 .env
