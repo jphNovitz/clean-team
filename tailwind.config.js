@@ -26,6 +26,7 @@ module.exports = {
                 'main': '#f3d2c1', //bg
                 'paragraph' : '#172c66',
                 'white-custom': '#fef6e4',
+                'smoky-black' : '#090601',
                 'secondary': '#8bd3dd',
                 'tertiary': "#f582ae",
                 'headline': '#001858', 
