@@ -19,7 +19,9 @@ defineProps({
 
 <template>
 
-    <Head title="Les Cleaneuses" />
+    <Head>
+      <title> Les Cleaneuses </title>
+    </Head>
 
     <!-- <div class="flex flex-col items-start justify-end   sm:items-center sm:pt-0">
         <div v-if="canLogin" class="hidden  px-6 py-4 sm:block">
@@ -39,7 +41,7 @@ defineProps({
     </div> -->
 
     <div
-        class="flex flex-col md:flex-row w-full  bg-gradient-to-b from-white-custom to-main justify-start text-headline p-6">
+        class="flex flex-col md:flex-row w-full  bg-gradient-to-b from-white-custom via-main to-white-custom dark:bg-gradient-to-b dark:from-smoky-black dark:via-gray-700 dark:to-smoky-black justify-start text-headline p-6">
         <div class="w-full md:w-2/3 ">
             <!-- <h1 class="font-black text-2xl mb-6"> -->
             <Header1>
@@ -62,15 +64,18 @@ defineProps({
             </Header3>
             <div class="flex justify-start py-12">
                 <Button type="button">
-                    {{ trans('auth.Register') }}
+                  <Link v-if="canRegister" :href="route('register')"
+                        class="ml-4 text-sm font-bold text-link-dark dark:text-gray-500 ">
+                    {{ trans('auth.Register') }}</Link>
                 </Button>
                 <SecondaryButton>
-                    {{ trans('auth.login') }}
+                  <Link :href="route('login')" >
+                    {{ trans('auth.Login') }}</Link>
                 </SecondaryButton>
             </div>
         </div>
         <div class="w-full  md:w-1/3 p-12  md:pt-3 flex justify-center items-center ">
-            <img src="../../css/images/cleaners_01.jpg" class="w-full" />
+            <img src="../../css/images/cleaners_01.jpg" class="w-full" alt="Les Cleaneuses" />
         </div>
     </div>
 
