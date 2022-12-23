@@ -1,16 +1,13 @@
 <script setup>
-import { computed } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { reactive } from 'vue'
 import { trans } from "matice";
 import { useForm } from '@inertiajs/inertia-vue3'
 import moment from 'moment-with-locales-es6';
 
-
 import Button from '@/Components/Button.vue';
-import { BeakerIcon, ArrowPathIcon, HandThumbUpIcon } from '@heroicons/vue/20/solid'
+import { ArrowPathIcon, HandThumbUpIcon } from '@heroicons/vue/20/solid'
 import JetLabel from '@/Components/Label.vue';
 import JetInput from '@/Components/Input.vue';
 import JetCheckbox from '@/Components/Checkbox.vue';
@@ -39,7 +36,7 @@ const alert = reactive({
 
 
 function product(id) {
-    return products.filter(product => product.id == id)[0]
+    return products.filter(product => product.id ===id)[0]
 }
 
 function submit() {
@@ -50,7 +47,7 @@ function submit() {
 }
 
 watch(alert, async () => {
-    if (alert.success) setTimeout(function () { alert.message = '', alert.success = false }, 3000);
+    if (alert.success) setTimeout(function () { alert.message = ''; alert.success = false }, 3000);
 })
 </script>
 
@@ -62,10 +59,10 @@ watch(alert, async () => {
 
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-0 md:text-center">
         <JetLabel class="md:hidden mb-2">{{ trans('app.Quantity') }}</JetLabel>
-        <JetInput v-if="product(form.product_id).type_id == 1" type="number"
-            class="w-16 md:w-12 md:text-sm md:p-0  rounded-md border-0  outline outline-offset-2 outline-1 outline-slate-00"
+        <JetInput v-if="product(form.product_id).type_id === 1" type="number"
+            class="w-16 md:w-12 md:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200"
             v-model="form.quantity" />
-        <JetCheckbox v-else type="checkbox" :checked="form.active" v-model.checkbox="form.active" />
+        <JetCheckbox v-else type="checkbox" :checked="form.active" v-model="form.active" />
     </div>
     <div class="col-span-1 flex items-end justify-center px-2 py-3 md:table-cell md:w-1/12 md:px-0 md:text-center">
         <Button type="submit" class="w-16 h-12 md:w-12 md:h-8 flex items-center justify-center" :disabled="form.processing"
