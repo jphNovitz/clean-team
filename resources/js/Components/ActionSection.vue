@@ -6,7 +6,9 @@ import JetSectionTitle from './SectionTitle.vue';
     <div class="md:grid md:grid-cols-4 md:gap-5">
         <JetSectionTitle>
             <template #title>
+              <span class=" text-headline dark:text-main">
                 <slot name="title" />
+              </span>
             </template>
             <template #description>
                 <slot name="description" />

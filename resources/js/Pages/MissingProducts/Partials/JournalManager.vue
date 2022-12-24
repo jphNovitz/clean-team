@@ -21,11 +21,6 @@ var state = reactive({
     available: [],
     products: usePage().props.value.initialProducts
 })
-//
-// function toggleManger() {
-//     if (showManager) showManager = false
-//     else showManager = false
-// }
 
 function reportAndRedirect() {
     setTimeout(function () {
