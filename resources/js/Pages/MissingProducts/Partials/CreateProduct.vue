@@ -1,9 +1,6 @@
 <script setup>
 
-import { computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
-import { ref, watch } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
+import { watch } from 'vue'
 import { reactive } from 'vue'
 import { trans } from "matice"
 import { useForm } from '@inertiajs/inertia-vue3'
@@ -29,7 +26,7 @@ const alert = reactive({
 watch(alert, async () => {
     if (alert.success) {
         setTimeout(function () {
-            alert.message = '', alert.success = false
+            alert.message = ''; alert.success = false
             // Inertia.visit('missing')
         }, 3000);
 
@@ -57,7 +54,7 @@ function submit(){
             <div class="w-40">
                 <JetLabel class="mb-2"> Type </JetLabel>
                 <select v-model="form.type_id"
-                    class="w-full md:text-sm md:p-0  rounded-md border-0  outline outline-offset-2 outline-1 outline-slate-00">
+                    class="w-full md:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200">
                     <option class="md:text-sm" value="1">Linge</option>
                     <option class="md:text-sm" value="2">Produit</option>
                 </select>
@@ -67,11 +64,12 @@ function submit(){
                 <Checkbox :checked="form.default" v-model="form.default" />
             </div>
         </div>
-        <div class="flex flex-row">
+        <div class="flex flex-row items-start">
 
-            <div class="px-2 py-3 flex flex-col items-center justify-center  md:px-2 md:py-3 ">
-                <Button type="submit" :disabled="form.processing" @click.prevent="submit">
-                    Save
+            <div class="pr-4 py-3 flex flex-col items-start justify-start  md:pr-2 md:py-3 ">
+                <Button type="submit" :disabled="form.processing" @click.prevent="submit"
+                class="ml-0">
+                    {{ trans('btn.Save')}}
                 </Button>
             </div>
             <div class="px-2 py-3 md:px-5 md:py-3"> 

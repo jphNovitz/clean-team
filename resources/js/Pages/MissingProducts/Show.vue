@@ -7,7 +7,7 @@ import JournalManager from '@/Pages/MissingProducts/Partials/JournalManager.vue'
 import ProductManager from '@/Pages/MissingProducts/Partials/ProductManager.vue'
 import {Inertia} from '@inertiajs/inertia';
 
-import {usePage, Link} from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/inertia-vue3'
 import {trans} from "matice";
 import Button from '@/Components/Button.vue';
 import Header2 from '@/Components/Titles/Header2.vue'
@@ -89,19 +89,15 @@ function addProductToJournal(id) {
       <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <JetActionSection class="mt-10 sm:mt-0">
           <template #title>
-                <span class=" text-headline dark:text-main">
-                  {{ trans('app.Missing_Products') }}
-                </span>
+            {{ trans('app.Missing_Products') }}
           </template>
 
           <template #description>
-                       <span class=" text-headline dark:text-white-custom">
-                        {{ trans('app.Missing_products_description') }}
-                       </span>
+            {{ trans('app.Missing_products_description') }}
           </template>
 
           <template #content>
-              <JournalManager @show-add-modal="showAddModal = !showAddModal; loadModal()"/>
+            <JournalManager @show-add-modal="showAddModal = !showAddModal; loadModal()"/>
           </template>
 
         </JetActionSection>

@@ -1,20 +1,13 @@
 <script setup>
-import { computed } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 import { reactive } from 'vue'
 import { trans } from "matice";
 import { useForm } from '@inertiajs/inertia-vue3'
-import moment from 'moment-with-locales-es6';
-
 
 import Button from '@/Components/Button.vue';
-import { BeakerIcon } from '@heroicons/vue/20/solid'
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { TrashIcon } from '@heroicons/vue/20/solid'
 import JetLabel from '@/Components/Label.vue';
-import JetInput from '@/Components/Input.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import JetActionMessage from '@/Components/ActionMessage.vue'
 
@@ -52,7 +45,8 @@ function submit(){
 watch(alert, async () => {
     if (alert.success) {
         setTimeout(function () {
-            alert.message = '', alert.success = false
+            alert.message = ''
+            alert.success = false
             Inertia.visit('missing')
         }, 3000);
 
@@ -63,15 +57,15 @@ watch(alert, async () => {
 <template>
 
     <div class="col-span-3 px-2 py-3 md:table-cell md:w-5/12 md:px-5 md:py-3">
-        <JetLabel class="md:hidden mb-2"> {{trans('auth.Name')}} </JetLabel>
+        <JetLabel class="md:hidden mb-2"> AAA{{trans('auth.Name')}} </JetLabel>
         {{product.name}}
     </div>
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-2/12 md:px-5 md:py-3">
         <JetLabel class="md:hidden mb-2"> Type </JetLabel>
         <select v-model="form.type_id"
-            class="w-full md:text-sm md:p-0  rounded-md border-0  outline outline-offset-2 outline-1 outline-slate-00">
-            <option class="md:text-sm" value="1">Linge</option>
-            <option class="md:text-sm" value="2">Produit</option>
+            class=" bg-white-custom after:bg-gray-200 w-full md:text-xs mg:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200">
+            <option class="bg-white-custom p-2 md:text-xs mg:text-sm" value="1">Linge</option>
+            <option class="md:text-xs mg:text-sm" value="2">Produit</option>
         </select>
     </div>
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-5 md:py-3">
