@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Product\Email\EmailController;
 use App\Http\Controllers\Product\MissingProductsController;
 use App\Http\Controllers\Product\ProductController;
@@ -35,10 +36,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-    
+//    Route::get('/dashboard', function () {
+//        return Inertia::render('Dashboard');
+//    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     //TEAMS
     Route::put('/teams/{team}', [TeamController::class, 'updateContactEmail'])->name('teams.update_contact_email');
 
