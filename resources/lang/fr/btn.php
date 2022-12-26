@@ -9,6 +9,8 @@ return [
     
     */
 
+    'Cancel' => 'Annuler',
+    'cancel' => 'annuler',
     'login' => 'se connecter',
     'Login' => 'Se connecter',
     'register' => 's\'enregistrer',
@@ -34,5 +36,7 @@ return [
     "Report" => "Rapport",
     "Display_Products" => "Afficher les Produits",
     "Display_Linens" => "Afficher le linge",
+    "Add_product" => "Ajouter un produit",
+    "add_product" => "ajouter un produit"
     ]
 ;

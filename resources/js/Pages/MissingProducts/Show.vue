@@ -7,15 +7,12 @@ import JournalManager from '@/Pages/MissingProducts/Partials/JournalManager.vue'
 import ProductManager from '@/Pages/MissingProducts/Partials/ProductManager.vue'
 import {Inertia} from '@inertiajs/inertia';
 
-import { usePage } from '@inertiajs/inertia-vue3'
+import {usePage} from '@inertiajs/inertia-vue3'
 import {trans} from "matice";
 import Button from '@/Components/Button.vue';
 import Header2 from '@/Components/Titles/Header2.vue'
-import {EllipsisVerticalIcon, Cog6ToothIcon, PencilSquareIcon} from '@heroicons/vue/20/solid'
+import {EllipsisVerticalIcon, Cog6ToothIcon, PencilSquareIcon, XMarkIcon} from '@heroicons/vue/20/solid'
 
-// const showConsumable = ref(false)
-// const showLinens = ref(true)
-// const showOddColor = ref(false)
 const showManager = ref(false)
 const showSecondaryMenu = ref(false)
 var showAddModal = ref(false)
@@ -107,13 +104,19 @@ function addProductToJournal(id) {
     </div>
     <!-- MODAL : list of products available to add - create journal line with -->
     <JetModal :show='showAddModal'>
-      <div class="p-5">
-        <Header2 class="pb-5">Add_product</Header2>
+      <div class="bg-white-custom text-paragraph dark:bg-smoky-black dark:text-white-custom p-5">
+        <div class="flex flex-row justify-between items-start">
+          <Header2 class="pb-5">{{ trans('btn.Add_product') }}</Header2>
+          <button @click.prevent="showAddModal = false">
+            <XMarkIcon class="w-6" />
+          </button>
+        </div>
         <div v-if="state.available" class="grid grid-cols-3" v-for="product in state.available">
           <div class="col-span-2 p-3">{{ product.name }} ({{ product.id }})</div>
           <div class="p-3">
             <Button
-                @click.prevent="addProductToJournal(product.id); showAddModal = !showAddModal">app.add
+                @click.prevent="addProductToJournal(product.id); showAddModal = !showAddModal">
+              {{ trans('btn.Add') }}
             </Button>
           </div>
 
