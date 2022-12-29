@@ -23,6 +23,10 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "matice": "^1.1.0"
+        "@heroicons/vue": "^2.0.11",
+        "matice": "^1.1.0",
+        "moment": "^2.29.4",
+        "moment-with-locales-es6": "^1.0.1",
+        "vue-moment": "^4.1.0"
     }
 }
