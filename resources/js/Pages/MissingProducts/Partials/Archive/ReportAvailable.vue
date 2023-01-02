@@ -1,14 +1,16 @@
 <script setup>
 
 import { Inertia } from '@inertiajs/inertia';
-import { ref, watch, reactive, computed, onMounted } from 'vue'
+import { reactive, onMounted } from 'vue'
+import {usePage} from '@inertiajs/inertia-vue3'
 import { trans } from "matice"
 import Button from '@/Components/Button.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
 import { FolderArrowDownIcon, PaperAirplaneIcon } from '@heroicons/vue/20/solid'
 
 const state = reactive({
-    available_lines: 0
+    available_lines: 0,
+    current_team: usePage().props.value.current_team
 })
 
 function getAvailableCount() {
@@ -41,8 +43,8 @@ onMounted(() => {
             <p>{{ trans('report.Available_message')}} ({{state.available_lines}} {{ trans('report.products')}})</p>
             <div class="w-1/2 grid grid-cols-2">
                 <div class="p-1">
-                    <a :href="route('email_report')" >
-                    <Button class="w-full justify-center">
+                    <a :href="route('email_report')"  :disabled="!state.current_team.contact_email">
+                    <Button class="w-full justify-center" :disabled="!state.current_team.contact_email" >
                         <PaperAirplaneIcon class="w-5 mr-2 " />
                         <span class="hidden md:inline text-xs">
                             {{trans('btn.send')}}
