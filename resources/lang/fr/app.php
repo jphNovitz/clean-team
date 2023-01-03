@@ -38,6 +38,9 @@ return [
     'add_product' => 'ajouter un produit',
     "Missing_Products" => "Produits manquants",
     "Missing_products_description" => "Signale les produits et le linge manquant",
+    "Missing_products_archives" => "Produits manquant (archives)",
+    "Missing_products_archives_description" => "Ici s'affichent vos rapports disponibles ainsi que vos archives. A chaque fois vous avee la possibilité 
+     de télécharger ou d'envoyer un rapport.  Si vous n'avez pas renseigné d'email de contact pour cette équipe cette fonctionnalité n'est pas disponible.",
     "Products" => "Produits",
     "Product" => "Produit",
     "product" => "produit"

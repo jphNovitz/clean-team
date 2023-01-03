@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <h1 class="font-semibold text-xs text-gray-custom leading-tight">
+    <h6 class="font-semibold text-xs text-gray-custom dark:text-white-custom leading-tight">
         <slot />
-    </h1>
+    </h6>
 </template>
