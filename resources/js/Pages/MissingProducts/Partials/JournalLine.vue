@@ -60,7 +60,7 @@ watch(alert, async () => {
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-0 md:text-center">
         <JetLabel class="md:hidden mb-2">{{ trans('app.Quantity') }}</JetLabel>
         <JetInput v-if="product(form.product_id).type_id === 1" type="number"
-            class="w-16 md:w-12 md:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200"
+            class="w-16 md:w-12 md:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200 md:px-2"
             v-model="form.quantity" />
         <JetCheckbox v-else type="checkbox" :checked="form.active" v-model="form.active" />
     </div>
