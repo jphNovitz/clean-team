@@ -212,6 +212,10 @@ const logout = () => {
                         <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                           {{ trans('app.Dashboard') }}
                         </JetResponsiveNavLink>
+
+                      <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('missing')">
+                        {{ trans('app.MissongProducts') }}
+                        </JetResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
