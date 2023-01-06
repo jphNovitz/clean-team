@@ -80,6 +80,9 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
             </div>
         </div>
         <div class="w-full flex flex-col md:table-row-group">
+            <div v-if="$page.props.journal.length < 1" class="flex text-gray-700 dark:text-white-custom  p-6">
+              {{trans('app.No_item')}}
+            </div>
             <div v-for="line in $page.props.journal" :key="line.id"
                 class="grid grid-cols-3 gap-4 text-xl border-t-2  border-t-gray-200 border-b-2 border-b-gray-200 md:table-row transition-colors ease-in-out delay-150 duration-1000"
                 :class="{ 'odd:bg-main dark:odd:bg-gray-700': showOddColor, 'border-l-2 border-gray-400 rounded-l-md': line.product.type_id === 1 }, { 'border-l-2 border-tertiary rounded-l-md': line.product.type_id === 2 }">

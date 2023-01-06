@@ -43,7 +43,8 @@ return [
      de télécharger ou d'envoyer un rapport.  Si vous n'avez pas renseigné d'email de contact pour cette équipe cette fonctionnalité n'est pas disponible.",
     "Products" => "Produits",
     "Product" => "Produit",
-    "product" => "produit"
+    "product" => "produit",
+    "No_item" => "Votre liste est vide ... pour l'instant",
 
         
 ];
