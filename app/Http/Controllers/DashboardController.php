@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MissingProducts;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Laravel\Jetstream\Jetstream;
 
 class DashboardController extends Controller
 {

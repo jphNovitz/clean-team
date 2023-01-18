@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Team;
 use App\Actions\Jetstream\UpdateTeamContactEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Laravel\Jetstream\Contracts\UpdatesTeamNames;
 use Laravel\Jetstream\Jetstream;
 
 class TeamController extends Controller

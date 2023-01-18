@@ -41,7 +41,7 @@ Route::middleware([
 //    })->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     //TEAMS
-    Route::put('/teams/{team}', [TeamController::class, 'updateContactEmail'])->name('teams.update_contact_email');
+    Route::put('/teams/{team}/name', [TeamController::class, 'updateContactEmail'])->name('teams.update_contact_email');
 
     Route::get('/missing', [MissingProductsController::class, 'index'])->middleware('share_products')->name('missing_products');
     Route::get('missing/available_products', [MissingProductsController::class, 'productsNotInJournal'])->name('products_not_in_journal');
