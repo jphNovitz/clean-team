@@ -41,7 +41,6 @@ function addProductToJournal(id) {
       console.log('success')
     }
   })
-  showAddModal = false
 }
 
 
@@ -108,14 +107,14 @@ function addProductToJournal(id) {
         <div class="flex flex-row justify-between items-start">
           <Header2 class="pb-5">{{ trans('btn.Add_product') }}</Header2>
           <button @click.prevent="showAddModal = false">
-            <XMarkIcon class="w-6" />
+            <XMarkIcon class="w-6"/>
           </button>
         </div>
         <div v-if="state.available" class="grid grid-cols-3" v-for="product in state.available">
           <div class="col-span-2 p-3">{{ product.name }} ({{ product.id }})</div>
           <div class="p-3">
             <Button
-                @click.prevent="addProductToJournal(product.id); showAddModal = !showAddModal">
+                @click.prevent="addProductToJournal(product.id), showAddModal = false">
               {{ trans('btn.Add') }}
             </Button>
           </div>
