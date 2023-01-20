@@ -36,7 +36,9 @@ const alert = reactive({
 
 
 function product(id) {
-    return products.filter(product => product.id ===id)[0]
+   let filtered = products.filter(product => product.id ===id)[0]
+
+    if (filtered !== undefined)    return filtered
 }
 
 function submit() {
