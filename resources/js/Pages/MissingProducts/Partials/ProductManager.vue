@@ -31,7 +31,7 @@ const showAddProductForm = ref(false)
 
         <SecondaryButton class="mb-5" @click.prevent="showAddProductForm = !showAddProductForm">
           <span v-if="showAddProductForm">{{ trans('btn.Cancel') }}</span>
-          <span v-else-if="showAddProductForm">{{ trans('app.Add_product') }}</span>
+          <span v-else>{{ trans('btn.Add_product') }}</span>
         </SecondaryButton>
 
         <CreateProduct v-if="showAddProductForm"/>
