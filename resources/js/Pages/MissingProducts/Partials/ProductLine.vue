@@ -63,14 +63,14 @@ watch(alert, async () => {
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-2/12 md:px-5 md:py-3">
         <JetLabel class="md:hidden mb-2"> Type </JetLabel>
         <select v-model="form.type_id"
-            class=" bg-white-custom after:bg-gray-200 w-full md:text-xs mg:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200">
-            <option class="bg-white-custom p-2 md:text-xs mg:text-sm" value="1">Linge</option>
+            class=" bg-gray-800 after:bg-gray-200 w-full md:text-xs mg:text-sm md:p-0  rounded-sm border-0  outline outline-offset-4 outline-1 outline-gray-200">
+            <option class="p-2 md:text-xs mg:text-sm" value="1">Linge</option>
             <option class="md:text-xs mg:text-sm" value="2">Produit</option>
         </select>
     </div>
-    <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-5 md:py-3">
+    <div class="col-span-1 px-2 py-3 md:table-cell md:w-1/12 md:px-5 md:py-3 text-center">
         <JetLabel class="md:hidden mb-2">Par Défaut </JetLabel>
-        <Checkbox :checked="form.default" v-model="form.default" />
+        <Checkbox :checked="form.default" v-model="form.default" class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-tertiary checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain  mr-2 cursor-pointer" />
     </div>
     <div class="col-span-1 px-2 py-3 flex flex-col items-center justify-center md:table-cell md:w-2/12 md:px-2 md:py-3 ">
         <Button type="submit" :disabled="form.processing" @click.prevent="submit">
