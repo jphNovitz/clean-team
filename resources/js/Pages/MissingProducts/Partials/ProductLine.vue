@@ -57,7 +57,7 @@ watch(alert, async () => {
 <template>
 
     <div class="col-span-3 px-2 py-3 md:table-cell md:w-5/12 md:px-5 md:py-3">
-        <JetLabel class="md:hidden mb-2"> AAA{{trans('auth.Name')}} </JetLabel>
+        <JetLabel class="md:hidden mb-2">{{trans('auth.Name')}} </JetLabel>
         {{product.name}}
     </div>
     <div class="col-span-1 px-2 py-3 md:table-cell md:w-2/12 md:px-5 md:py-3">

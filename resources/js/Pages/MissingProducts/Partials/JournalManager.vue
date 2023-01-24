@@ -46,9 +46,9 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
     <div class="w-full flex justify-between my-4">
         <label for="default-consumable" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="default-consumable" v-model="showConsumable" class="sr-only peer">
-            <div
-                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-tertiary  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-red-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-tertiary">
-            </div>
+            <span
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-tertiary  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-red-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white-custom dark:after:bg-tertiary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-tertiary">
+            </span>
             <span class="ml-3 text-sm font-medium text-headline dark:text-main">
                 {{ trans('btn.Display_Products') }}
             </span>
@@ -56,13 +56,13 @@ watch([showConsumable, showLinens], async () => showOddColor.value = (showConsum
         <label for="default-linens" class="inline-flex relative items-center cursor-pointer">
             <input type="checkbox" value="" id="default-linens" v-model="showLinens" class="sr-only peer">
             <div
-                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-tertiary  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-red-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-tertiary">
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-tertiary  rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:bg-red-50 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white-custom dark:after:bg-tertiary after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-100 peer-checked:bg-tertiary">
             </div>
             <span class="ml-3 text-sm font-medium text-headline dark:text-main">
                 {{ trans('btn.Display_Linens') }}
             </span>
         </label>
-        <Button class="" @click.prevent="$emit('showAddModal')">
+        <Button class="" @click.prevent="$emit('showAddModal')" >
             <PlusIcon class="w-4 md:hidden" />
             <span class="hidden md:inline-block text-xs">
                 +1 {{trans('app.product')}}
